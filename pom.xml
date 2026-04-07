@@ -69,6 +69,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>library-api:${project.version}</name>
+                    </image>
+                    <!-- Paketo uses Docker-in-Docker: dockerd runs inside devcontainer (privileged + vfs storage).
+                         No host socket mount needed. Paketo talks to local dockerd at /var/run/docker.sock -->
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
