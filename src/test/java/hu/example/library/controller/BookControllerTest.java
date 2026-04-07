@@ -9,8 +9,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
@@ -28,7 +28,7 @@ public class BookControllerTest {
 
     @Test
     public void testGetAllBooks() throws Exception {
-        Book book = new Book("Clean Code", "Robert C. Martin", "9780132350884", new Date());
+        Book book = new Book("Clean Code", "Robert C. Martin", "9780132350884", LocalDate.of(2008, 8, 1));
         book.setId(1L);
 
         given(bookService.getAllBooks()).willReturn(Arrays.asList(book));

@@ -1,8 +1,7 @@
 package hu.example.library.model;
 
-import javax.persistence.*;
-import java.util.Calendar;
-import java.util.Date;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "loans")
@@ -21,39 +20,32 @@ public class Loan {
     private Member member;
 
     @Column(name = "loan_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date loanDate;
+    private LocalDate loanDate;
 
     @Column(name = "due_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @Column(name = "return_date")
-    @Temporal(TemporalType.DATE)
-    private Date returnDate;
+    private LocalDate returnDate;
 
     public Loan() {
     }
 
     /**
-     * Calendar-alapú dátumszámítás — tipikus Java 8 előtti minta.
+     * Migrated from Calendar-based date arithmetic to LocalDate.plusDays().
      */
     public Loan(Book book, Member member, int loanDays) {
         this.book = book;
         this.member = member;
-        this.loanDate = new Date();
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(this.loanDate);
-        cal.add(Calendar.DAY_OF_MONTH, loanDays);
-        this.dueDate = cal.getTime();
+        this.loanDate = LocalDate.now();
+        this.dueDate = this.loanDate.plusDays(loanDays);
     }
 
     public boolean isOverdue() {
         if (returnDate != null) {
             return false;
         }
-        return new Date().after(dueDate);
+        return LocalDate.now().isAfter(dueDate);
     }
 
     public boolean isReturned() {
@@ -86,27 +78,27 @@ public class Loan {
         this.member = member;
     }
 
-    public Date getLoanDate() {
+    public LocalDate getLoanDate() {
         return loanDate;
     }
 
-    public void setLoanDate(Date loanDate) {
+    public void setLoanDate(LocalDate loanDate) {
         this.loanDate = loanDate;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
-    public Date getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 }

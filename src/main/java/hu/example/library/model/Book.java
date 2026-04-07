@@ -1,10 +1,12 @@
 package hu.example.library.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "books")
@@ -28,12 +30,11 @@ public class Book {
     private String isbn;
 
     @Column(name = "published_date")
-    @Temporal(TemporalType.DATE)
-    private Date publishedDate;
+    private LocalDate publishedDate;
 
     @Column(name = "created_at", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private Boolean available = true;
@@ -41,7 +42,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, String isbn, Date publishedDate) {
+    public Book(String title, String author, String isbn, LocalDate publishedDate) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
@@ -52,19 +53,18 @@ public class Book {
     @PrePersist
     public void prePersist() {
         if (createdAt == null) {
-            createdAt = new Date();
+            createdAt = LocalDateTime.now();
         }
     }
 
     /**
-     * Formázott dátum — tipikus Java 8-as minta, amit java.time-ra kéne cserélni.
+     * Formázott dátum — migrated from SimpleDateFormat to DateTimeFormatter (thread-safe).
      */
     public String getFormattedPublishedDate() {
         if (publishedDate == null) {
             return null;
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return sdf.format(publishedDate);
+        return publishedDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
     // --- Getters & Setters ---
@@ -101,19 +101,19 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Date getPublishedDate() {
+    public LocalDate getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Date publishedDate) {
+    public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

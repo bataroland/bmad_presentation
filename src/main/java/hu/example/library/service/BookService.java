@@ -5,10 +5,9 @@ import hu.example.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -58,16 +57,11 @@ public class BookService {
     }
 
     /**
-     * Könyvek rendezése szerző szerint — anonymous Comparator, Java 8 előtti stílus.
+     * Könyvek rendezése szerző szerint — migrated from anonymous Comparator to lambda.
      */
     public List<Book> getBooksSortedByAuthor() {
-        List<Book> books = new ArrayList<Book>(bookRepository.findAll());
-        Collections.sort(books, new Comparator<Book>() {
-            @Override
-            public int compare(Book b1, Book b2) {
-                return b1.getAuthor().compareTo(b2.getAuthor());
-            }
-        });
-        return books;
+        return bookRepository.findAll().stream()
+                .sorted(Comparator.comparing(Book::getAuthor))
+                .collect(Collectors.toList());
     }
 }

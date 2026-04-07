@@ -19,13 +19,13 @@ public class LoanController {
     @PostMapping("/borrow")
     public ResponseEntity<Loan> borrowBook(@RequestParam Long bookId, @RequestParam Long memberId) {
         Loan loan = loanService.borrowBook(bookId, memberId);
-        return new ResponseEntity<Loan>(loan, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(loan);
     }
 
     @PostMapping("/{id}/return")
     public ResponseEntity<Loan> returnBook(@PathVariable Long id) {
         Loan loan = loanService.returnBook(id);
-        return new ResponseEntity<Loan>(loan, HttpStatus.OK);
+        return ResponseEntity.ok(loan);
     }
 
     @GetMapping("/active")

@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LoanService {
@@ -63,7 +63,7 @@ public class LoanService {
             throw new IllegalStateException("Book already returned");
         }
 
-        loan.setReturnDate(new Date());
+        loan.setReturnDate(LocalDate.now());
         loan.getBook().setAvailable(true);
         bookRepository.save(loan.getBook());
 
@@ -75,17 +75,12 @@ public class LoanService {
     }
 
     /**
-     * Lejárt kölcsönzések — iteráció + manuális szűrés, stream nélkül.
+     * Lejárt kölcsönzések — migrated from manual for-loop to Stream API.
      */
     public List<Loan> getOverdueLoans() {
-        List<Loan> activeLoans = loanRepository.findByReturnDateIsNull();
-        List<Loan> overdueLoans = new ArrayList<Loan>();
-        for (Loan loan : activeLoans) {
-            if (loan.isOverdue()) {
-                overdueLoans.add(loan);
-            }
-        }
-        return overdueLoans;
+        return loanRepository.findByReturnDateIsNull().stream()
+                .filter(Loan::isOverdue)
+                .collect(Collectors.toList());
     }
 
     public List<Loan> getMemberLoans(Long memberId) {
