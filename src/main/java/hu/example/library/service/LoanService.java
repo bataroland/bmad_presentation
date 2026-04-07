@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -63,7 +63,7 @@ public class LoanService {
             throw new IllegalStateException("Book already returned");
         }
 
-        loan.setReturnDate(new Date());
+        loan.setReturnDate(LocalDate.now());
         loan.getBook().setAvailable(true);
         bookRepository.save(loan.getBook());
 

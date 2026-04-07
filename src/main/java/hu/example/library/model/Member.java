@@ -2,7 +2,7 @@ package hu.example.library.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "members")
@@ -21,8 +21,7 @@ public class Member {
     private String email;
 
     @Column(name = "registered_at", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date registeredAt;
+    private LocalDateTime registeredAt;
 
     @Column(nullable = false)
     private Boolean active = true;
@@ -38,7 +37,7 @@ public class Member {
     @PrePersist
     public void prePersist() {
         if (registeredAt == null) {
-            registeredAt = new Date();
+            registeredAt = LocalDateTime.now();
         }
     }
 
@@ -68,11 +67,11 @@ public class Member {
         this.email = email;
     }
 
-    public Date getRegisteredAt() {
+    public LocalDateTime getRegisteredAt() {
         return registeredAt;
     }
 
-    public void setRegisteredAt(Date registeredAt) {
+    public void setRegisteredAt(LocalDateTime registeredAt) {
         this.registeredAt = registeredAt;
     }
 

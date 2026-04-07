@@ -9,8 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +30,7 @@ public class BookServiceTest {
 
     @BeforeEach
     public void setUp() {
-        sampleBook = new Book("Clean Code", "Robert C. Martin", "9780132350884", new Date());
+        sampleBook = new Book("Clean Code", "Robert C. Martin", "9780132350884", LocalDate.of(2008, 8, 1));
         sampleBook.setId(1L);
     }
 
