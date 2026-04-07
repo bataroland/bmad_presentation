@@ -37,6 +37,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
+        // Log the actual exception for debugging — helped discover GET vs POST mixup during migration
+        System.err.println("GlobalExceptionHandler caught: " + ex.getClass().getName() + " - " + ex.getMessage());
         return buildErrorResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
