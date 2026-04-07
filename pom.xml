@@ -15,10 +15,8 @@
     <groupId>hu.example</groupId>
     <artifactId>library-api</artifactId>
     <version>1.0.0</version>
-    <packaging>war</packaging>
-
     <name>Library API</name>
-    <description>Simple library management REST API — Java 8, Spring Boot 1.5, WAR/Tomcat</description>
+    <description>Library management REST API — Java 25, Spring Boot 3.x, Paketo container</description>
 
     <properties>
         <java.version>25</java.version>
@@ -56,13 +54,6 @@
             <version>2.8.6</version>
         </dependency>
 
-        <!-- WAR: Tomcat provided at runtime -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -78,11 +69,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.3</version>
+                <configuration>
+                    <image>
+                        <name>library-api:${project.version}</name>
+                    </image>
+                    <!-- Paketo uses Docker-in-Docker: dockerd runs inside devcontainer (privileged + vfs storage).
+                         No host socket mount needed. Paketo talks to local dockerd at /var/run/docker.sock -->
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
