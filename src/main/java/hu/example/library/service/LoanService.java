@@ -30,7 +30,7 @@ public class LoanService {
 
     @Transactional
     public Loan borrowBook(Long bookId, Long memberId) {
-        Book book = bookRepository.findOne(bookId);
+        Book book = bookRepository.findById(bookId).orElse(null);
         if (book == null) {
             throw new IllegalArgumentException("Book not found: " + bookId);
         }
@@ -38,7 +38,7 @@ public class LoanService {
             throw new IllegalStateException("Book is not available: " + book.getTitle());
         }
 
-        Member member = memberRepository.findOne(memberId);
+        Member member = memberRepository.findById(memberId).orElse(null);
         if (member == null) {
             throw new IllegalArgumentException("Member not found: " + memberId);
         }
@@ -55,7 +55,7 @@ public class LoanService {
 
     @Transactional
     public Loan returnBook(Long loanId) {
-        Loan loan = loanRepository.findOne(loanId);
+        Loan loan = loanRepository.findById(loanId).orElse(null);
         if (loan == null) {
             throw new IllegalArgumentException("Loan not found: " + loanId);
         }

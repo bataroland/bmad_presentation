@@ -21,7 +21,7 @@ public class BookService {
     }
 
     public Book getBookById(Long id) {
-        return bookRepository.findOne(id);
+        return bookRepository.findById(id).orElse(null);
     }
 
     public Book createBook(Book book) {
@@ -29,7 +29,7 @@ public class BookService {
     }
 
     public Book updateBook(Long id, Book bookDetails) {
-        Book book = bookRepository.findOne(id);
+        Book book = bookRepository.findById(id).orElse(null);
         if (book == null) {
             return null;
         }
@@ -41,11 +41,11 @@ public class BookService {
     }
 
     public boolean deleteBook(Long id) {
-        Book book = bookRepository.findOne(id);
+        Book book = bookRepository.findById(id).orElse(null);
         if (book == null) {
             return false;
         }
-        bookRepository.delete(id);
+        bookRepository.deleteById(id);
         return true;
     }
 

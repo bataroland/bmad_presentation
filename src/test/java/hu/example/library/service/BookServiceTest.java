@@ -2,21 +2,22 @@ package hu.example.library.service;
 
 import hu.example.library.model.Book;
 import hu.example.library.repository.BookRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
 
     @Mock
@@ -27,7 +28,7 @@ public class BookServiceTest {
 
     private Book sampleBook;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         sampleBook = new Book("Clean Code", "Robert C. Martin", "9780132350884", new Date());
         sampleBook.setId(1L);
@@ -46,7 +47,7 @@ public class BookServiceTest {
 
     @Test
     public void testGetBookById() {
-        when(bookRepository.findOne(1L)).thenReturn(sampleBook);
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(sampleBook));
 
         Book found = bookService.getBookById(1L);
 
@@ -56,7 +57,7 @@ public class BookServiceTest {
 
     @Test
     public void testGetBookByIdNotFound() {
-        when(bookRepository.findOne(99L)).thenReturn(null);
+        when(bookRepository.findById(99L)).thenReturn(Optional.empty());
 
         Book found = bookService.getBookById(99L);
 
@@ -76,8 +77,8 @@ public class BookServiceTest {
 
     @Test
     public void testDeleteBookSuccess() {
-        when(bookRepository.findOne(1L)).thenReturn(sampleBook);
-        doNothing().when(bookRepository).delete(1L);
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(sampleBook));
+        doNothing().when(bookRepository).deleteById(1L);
 
         boolean deleted = bookService.deleteBook(1L);
 
@@ -86,7 +87,7 @@ public class BookServiceTest {
 
     @Test
     public void testDeleteBookNotFound() {
-        when(bookRepository.findOne(99L)).thenReturn(null);
+        when(bookRepository.findById(99L)).thenReturn(Optional.empty());
 
         boolean deleted = bookService.deleteBook(99L);
 
