@@ -26,33 +26,33 @@ public class BookController {
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         Book book = bookService.getBookById(id);
         if (book == null) {
-            return new ResponseEntity<Book>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
-        return new ResponseEntity<Book>(book, HttpStatus.OK);
+        return ResponseEntity.ok(book);
     }
 
     @PostMapping
     public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
         Book created = bookService.createBook(book);
-        return new ResponseEntity<Book>(created, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @Valid @RequestBody Book book) {
         Book updated = bookService.updateBook(id, book);
         if (updated == null) {
-            return new ResponseEntity<Book>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
-        return new ResponseEntity<Book>(updated, HttpStatus.OK);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         boolean deleted = bookService.deleteBook(id);
         if (!deleted) {
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/available")
