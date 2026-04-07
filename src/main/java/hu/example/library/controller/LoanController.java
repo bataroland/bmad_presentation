@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/loans")
@@ -19,35 +17,15 @@ public class LoanController {
     private LoanService loanService;
 
     @PostMapping("/borrow")
-    public ResponseEntity<?> borrowBook(@RequestParam Long bookId, @RequestParam Long memberId) {
-        try {
-            Loan loan = loanService.borrowBook(bookId, memberId);
-            return new ResponseEntity<Loan>(loan, HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            Map<String, String> error = new HashMap<String, String>();
-            error.put("error", e.getMessage());
-            return new ResponseEntity<Map<String, String>>(error, HttpStatus.NOT_FOUND);
-        } catch (IllegalStateException e) {
-            Map<String, String> error = new HashMap<String, String>();
-            error.put("error", e.getMessage());
-            return new ResponseEntity<Map<String, String>>(error, HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Loan> borrowBook(@RequestParam Long bookId, @RequestParam Long memberId) {
+        Loan loan = loanService.borrowBook(bookId, memberId);
+        return new ResponseEntity<Loan>(loan, HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}/return")
-    public ResponseEntity<?> returnBook(@PathVariable Long id) {
-        try {
-            Loan loan = loanService.returnBook(id);
-            return new ResponseEntity<Loan>(loan, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            Map<String, String> error = new HashMap<String, String>();
-            error.put("error", e.getMessage());
-            return new ResponseEntity<Map<String, String>>(error, HttpStatus.NOT_FOUND);
-        } catch (IllegalStateException e) {
-            Map<String, String> error = new HashMap<String, String>();
-            error.put("error", e.getMessage());
-            return new ResponseEntity<Map<String, String>>(error, HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Loan> returnBook(@PathVariable Long id) {
+        Loan loan = loanService.returnBook(id);
+        return new ResponseEntity<Loan>(loan, HttpStatus.OK);
     }
 
     @GetMapping("/active")
