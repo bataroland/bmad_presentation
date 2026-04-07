@@ -1,5 +1,6 @@
 package hu.example.library.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class Member {
     private String email;
 
     @Column(name = "registered_at", updatable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime registeredAt;
 
     @Column(nullable = false)
