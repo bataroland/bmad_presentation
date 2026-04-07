@@ -1,0 +1,46 @@
+{
+  "name": "library-api-java8",
+  "build": { "dockerfile": "Dockerfile" },
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "remoteUser": "root",
+  "updateRemoteUserUID": false,
+  "runArgs": ["--security-opt=label=disable"],
+  "forwardPorts": [8080, 8081],
+  "portsAttributes": {
+    "8080": { "label": "Tomcat", "onAutoForward": "notify" },
+    "8081": { "label": "Spring Boot (embedded)", "onAutoForward": "silent" }
+  },
+  "mounts": [
+    "source=${localEnv:XDG_RUNTIME_DIR}/podman/podman.sock,target=/run/podman/podman.sock,type=bind",
+    "source=${localEnv:HOME}/.config/claude,target=/root/.claude,type=bind",
+    "source=${localEnv:HOME}/.config/gh,target=/root/.config/gh,type=bind",
+    "source=library-api-bash-history,target=/root/.bash_history,type=volume",
+    "source=library-api-m2-repo,target=/root/.m2,type=volume",
+    "source=library-api-vscode-server,target=/root/.vscode-server,type=volume"
+  ],
+  "postCreateCommand": "mvn dependency:resolve; gh auth setup-git && GH_USER=$(gh api user --jq .login) && GH_NAME=$(gh api user --jq '.name // .login') && git config --global user.name \"$GH_NAME\" && git config --global user.email \"$GH_USER@users.noreply.github.com\" || echo 'WARNING: gh auth failed'",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-spring-boot-dashboard",
+        "anthropic.claude-code",
+        "GitHub.vscode-pull-request-github"
+      ],
+      "settings": {
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-1.8",
+            "path": "/usr/local/sdkman/candidates/java/current",
+            "default": true
+          }
+        ],
+        "docker.dockerPath": "podman"
+      }
+    }
+  },
+  "containerEnv": {
+    "CONTAINER_HOST": "unix:///run/podman/podman.sock",
+    "DOCKER_HOST": "unix:///run/podman/podman.sock"
+  }
+}
