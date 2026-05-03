@@ -65,7 +65,7 @@ mvn spring-boot:run
 # Terminal 2 — Migrated (Java 25)
 sdk use java 25.0.2-tem
 git checkout main
-mvn spring-boot:run -Dserver.port=8082
+SERVER_PORT=8082 mvn spring-boot:run
 # → localhost:8082/library/swagger-ui/index.html
 ```
 
