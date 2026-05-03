@@ -7,7 +7,7 @@ This repository demonstrates how structured, AI-assisted planning transforms ad-
 ## Quick Start
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/bataroland/bmad_presentation.git
 cd bmad_presentation
 mvn spring-boot:run
 ```

@@ -101,5 +101,5 @@ Phase 3 (Containerize): WAR → JAR → Paketo
 
 ---
 
-Demo repository: `github.com/[repo-link]`
+Demo repository: `github.com/bataroland/bmad_presentation`
 BMAD Method: `github.com/bmadcode/BMAD-METHOD`
