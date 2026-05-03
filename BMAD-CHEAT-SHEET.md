@@ -1,14 +1,63 @@
-# BMAD Migration Quick Reference Card
+# BMAD Quick Reference Card
 
-## Workflow Steps
+## A 6 modul
 
-| # | Command | What it does |
-|---|---------|-------------|
-| 1 | `/bmad-document-project` | Scans existing codebase, generates architecture overview, API contracts, data models |
-| 2 | `/bmad-product-brief` | Defines migration vision, scope boundaries, success criteria |
-| 3 | `/bmad-create-prd` | Produces detailed requirements (FRs/NFRs), user journeys, phase assignment |
-| 4 | `/bmad-create-architecture` | Documents explicit technical decisions (ADRs), implementation patterns, dependency order |
-| 5 | `/bmad-create-epics-and-stories` | Breaks work into implementable stories with acceptance criteria |
+| Modul | Cél | Példa parancsok |
+|-------|-----|-----------------|
+| **Core** | Általános funkciók (review, elicitation, party mode) | `/bmad-advanced-elicitation`, `/bmad-party-mode`, `/bmad-brainstorming` |
+| **BMM** | Business-Manager-Architect-Developer workflow | `/bmad-create-prd`, `/bmad-create-architecture`, `/bmad-dev-story` |
+| **CIS** | Creative & Innovation (brainstorming, design thinking, presentations) | `/bmad-cis-design-thinking`, `/bmad-cis-storytelling` |
+| **WDS** | Web Design System (8-step UX process) | `/wds-1-project-brief` → `/wds-8-product-evolution` |
+| **TEA** | Test Architecture (ATDD, NFR, traceability) | `/bmad-testarch-framework`, `/bmad-testarch-atdd` |
+| **BMB** | Builder (custom agents, workflows, modules) | `/bmad-agent-builder`, `/bmad-module-builder` |
+
+## BMM Core Workflow
+
+| # | Command | Mit csinál |
+|---|---------|-----------|
+| 1 | `/bmad-document-project` | Meglévő kódbázis feltérképezése — architektúra, API, adatmodellek |
+| 2 | `/bmad-product-brief` | Vízió, scope, sikerkritérium definíció |
+| 3 | `/bmad-create-prd` | Részletes követelmények (FR/NFR), user journey-k, fázis assignment |
+| 4 | `/bmad-create-architecture` | Explicit technikai döntések (ADR-ek), implementáció pattern-ek |
+| 5 | `/bmad-create-epics-and-stories` | Epic-ek és story-k acceptance criteria-val |
+| 6 | `/bmad-sprint-planning` | Sprint terv az epics-ből |
+| 7 | `/bmad-create-story` | Kontextussal feltöltött, implementálható story file |
+| 8 | `/bmad-dev-story` | Story implementációja az Amelia agenttel |
+| 9 | `/bmad-sprint-status` | Sprint állapot + kockázatok |
+| 10 | `/bmad-retrospective` | Epic utáni retrospektív |
+
+## Hasznos kiegészítők
+
+| Command | Mire jó |
+|---------|---------|
+| `/bmad-help` | "Most mit csináljak?" — felmért állapot alapján javasol |
+| `/bmad-advanced-elicitation` | 50+ módszer (Pre-mortem, Shark Tank, First Principles, Red Team) |
+| `/bmad-party-mode` | Multi-agent megbeszélés (pl. PM + Architect együtt vitáznak) |
+| `/bmad-code-review` | Adversarial code review (Blind Hunter + Edge Case Hunter + Acceptance Auditor) |
+| `/bmad-checkpoint-preview` | Human-in-the-loop review egy változás előtt |
+| `/bmad-correct-course` | Sprint közbeni pivot — jelentős változtatás kezelése |
+| `/bmad-validate-prd` | PRD validáció szabványok ellen |
+| `/bmad-check-implementation-readiness` | PRD/UX/Arch/Epic teljesség ellenőrzése |
+
+## A szereplők
+
+| Modul | Agent | Szerepkör |
+|-------|-------|-----------|
+| BMM | **Mary** | Business Analyst |
+| BMM | **Paige** | Tech Writer |
+| BMM | **John** | Product Manager |
+| BMM | **Sally** | UX Designer |
+| BMM | **Winston** | Architect |
+| BMM | **Amelia** | Developer |
+| TEA | **Murat** | Test Architect |
+| WDS | **Freya** | UX Designer |
+| WDS | **Saga** | Business Analyst |
+| CIS | **Carson** | Brainstorming Coach |
+| CIS | **Maya** | Design Thinking |
+| CIS | **Dr. Quinn** | Creative Problem Solver |
+| CIS | **Victor** | Innovation Strategist |
+| CIS | **Sophia** | Storyteller |
+| CIS | **Caravaggio** | Presentation Master |
 
 ## Getting Started
 
@@ -28,10 +77,10 @@ npm install -g @anthropic-ai/claude-code
 | # | Pitfall | Impact | BMAD catches it in |
 |---|---------|--------|--------------------|
 | 1 | **javax.crypto trap** — JDK-owned packages must NOT be renamed to jakarta | Broken cryptography | PRD requirements |
-| 2 | **Springfox + Boot 2.6+** — PathPatternParser breaks Springfox, need ant_path_matcher workaround | Swagger UI fails on startup | Architecture decisions |
-| 3 | **data.sql execution order** — Boot 2.5+ runs data.sql BEFORE DDL | App fails to start, no seed data | Architecture implementation notes |
-| 4 | **Jackson nanosecond precision** — LocalDateTime serializes with nanosec by default | Response parity breaks silently | Architecture format patterns |
-| 5 | **Mockito strict stubbing** — Boot 2.7+ upgrades Mockito, unused stubs fail tests | Tests break for wrong reason | Architecture testing strategy |
+| 2 | **Springfox + Boot 2.6+** — PathPatternParser breaks Springfox | Swagger UI fails on startup | Architecture decisions |
+| 3 | **data.sql execution order** — Boot 2.5+ runs data.sql BEFORE DDL | App fails to start, no seed data | Architecture impl notes |
+| 4 | **Jackson nanosecond precision** — LocalDateTime serializes with nanosec | Response parity breaks silently | Architecture format patterns |
+| 5 | **Mockito strict stubbing** — Boot 2.7+ upgrades Mockito | Tests break for wrong reason | Architecture testing strategy |
 
 ## Phased Migration Pattern
 

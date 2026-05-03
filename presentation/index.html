@@ -150,75 +150,83 @@
 
 <section data-background-color="#0a1628">
     <h2>A BMAD ökoszisztéma</h2>
-    <p class="small dim">Nem egy tool — egy módszertan modulokkal</p>
+    <p class="small dim">Nem egy tool — egy módszertan 6 modullal</p>
     <div class="three-col" style="margin-top:1em;">
         <div>
             <div class="module-box active">
-                <strong class="accent">BMM</strong><br>
-                Business Manager<br>
-                <span class="xsmall">Brief, PRD, Architecture<br>Epics & Stories</span>
+                <strong class="accent">Core</strong><br>
+                Általános funkciók<br>
+                <span class="xsmall">Party Mode, Elicitation<br>Review-k, Brainstorming<br>Distillator, Shard Doc</span>
             </div>
-            <div class="module-box" style="margin-top:0.5em;">
+            <div class="module-box active" style="margin-top:0.5em;">
+                <strong class="accent">BMM</strong><br>
+                Business-Manager-<br>Architect-Developer<br>
+                <span class="xsmall">Brief, PRD, Architecture<br>Epics, Stories, Sprint mgmt<br>Code Review, QA tests</span>
+            </div>
+        </div>
+        <div>
+            <div class="module-box" style="border-color: var(--bmad-purple);">
                 <strong class="purple">CIS</strong><br>
                 Creative & Innovation<br>
-                <span class="xsmall">Brainstorming, Design Thinking<br>Storytelling, Presentations</span>
+                <span class="xsmall">Brainstorming, Design Thinking<br>Innovation Strategy<br>Storytelling, Presentations</span>
             </div>
-        </div>
-        <div>
-            <div class="module-box active">
-                <strong class="accent">Core</strong><br>
-                Sprint Management<br>
-                <span class="xsmall">Sprint Planning, Status<br>Retrospective, Reviews</span>
-            </div>
-            <div class="module-box" style="margin-top:0.5em;">
+            <div class="module-box" style="margin-top:0.5em; border-color: var(--bmad-orange);">
                 <strong class="orange">WDS</strong><br>
                 Web Design System<br>
-                <span class="xsmall">UX Design, Trigger Maps<br>Scenarios, Design System</span>
+                <span class="xsmall">8 lépéses UX folyamat<br>Brief→Trigger→Scenarios<br>→UX Design→Agentic Dev</span>
             </div>
         </div>
         <div>
-            <div class="module-box active">
-                <strong class="accent">TEA</strong><br>
+            <div class="module-box" style="border-color: #51cf66;">
+                <strong class="ok">TEA</strong><br>
                 Test Architecture<br>
-                <span class="xsmall">Test Plans, ATDD<br>E2E Tests, CI Pipeline</span>
+                <span class="xsmall">ATDD, Test Design<br>NFR Assessment<br>CI Pipeline, Traceability</span>
             </div>
             <div class="module-box" style="margin-top:0.5em;">
                 <strong class="dim">BMB</strong><br>
-                Builder<br>
-                <span class="xsmall">Custom Agents<br>Workflows, Modules</span>
+                Builder (meta)<br>
+                <span class="xsmall">Custom Agents<br>Custom Workflows<br>Saját modulok</span>
             </div>
         </div>
     </div>
     <aside class="notes">
-        "A BMAD nem egyetlen script — ez egy ökoszisztéma. 6 modul, mindegyik más területet fed le. Ma a BMM-re és a Core-ra fókuszálunk, de megemlítem a többit is. A TEA a teszteléshez, a WDS az UX-hez, a CIS a kreatív munkához — és a BMB-vel saját modulokat is készíthetsz."
+        "A BMAD nem egyetlen script — ez egy ökoszisztéma. 6 modul. A Core az alap (Party Mode, elicitation, review-k). A BMM a Business-Manager-Architect-Developer workflow. A CIS a kreatív munkához. A WDS UX design 8 lépésben. A TEA test architecture. A BMB-vel pedig SAJÁT modulokat építhetsz — meta-szint."
     </aside>
 </section>
 
 <section>
     <h2>A BMAD szereplők</h2>
-    <div class="three-col">
+    <div class="three-col" style="font-size:0.85em;">
         <div>
+            <p class="accent" style="font-size:0.9em;"><strong>BMM csapat</strong></p>
             <p><span class="accent">Mary</span> — Business Analyst</p>
+            <p><span class="accent">Paige</span> — Tech Writer</p>
             <p><span class="accent">John</span> — Product Manager</p>
+            <p><span class="accent">Sally</span> — UX Designer</p>
             <p><span class="accent">Winston</span> — Architect</p>
             <p><span class="accent">Amelia</span> — Developer</p>
         </div>
         <div>
-            <p><span class="accent">Bob</span> — Scrum Master</p>
-            <p><span class="accent">Quinn</span> — QA Engineer</p>
-            <p><span class="accent">Murat</span> — Test Architect</p>
-            <p><span class="accent">Barry</span> — Quick Flow Dev</p>
+            <p class="purple" style="font-size:0.9em;"><strong>CIS csapat</strong></p>
+            <p><span class="purple">Carson</span> — Brainstorming</p>
+            <p><span class="purple">Maya</span> — Design Thinking</p>
+            <p><span class="purple">Dr. Quinn</span> — Problem Solver</p>
+            <p><span class="purple">Victor</span> — Innovation</p>
+            <p><span class="purple">Sophia</span> — Storytelling</p>
+            <p><span class="purple">Caravaggio</span> — Presentations</p>
         </div>
         <div>
-            <p><span class="purple">Sally</span> — UX Designer</p>
-            <p><span class="purple">Caravaggio</span> — Presentations</p>
-            <p><span class="purple">Carson</span> — Brainstorming</p>
-            <p><span class="purple">Sophia</span> — Storytelling</p>
+            <p class="ok" style="font-size:0.9em;"><strong>TEA & WDS</strong></p>
+            <p><span class="ok">Murat</span> — Test Architect (TEA)</p>
+            <p><span class="orange">Freya</span> — UX Designer (WDS)</p>
+            <p><span class="orange">Saga</span> — Analyst (WDS)</p>
+            <br>
+            <p class="dim small">+ generic review agents:<br>Adversarial, Edge Case Hunter</p>
         </div>
     </div>
     <p class="fragment small"><br>Mindegyik agent specializált — és <span class="accent">Party Mode</span>-ban együtt dolgoznak.</p>
     <aside class="notes">
-        "Nem egyetlen AI — specializált agentek. Az architect nem a kódot írja, a dev nem a PRD-t. Mint egy valódi csapat. És Party Mode-ban összeköthetők — pl. a PM és az Architect megvitatják a döntést."
+        "12+ specializált agent. Az architect nem a kódot írja, a dev nem a PRD-t. A BMM-ben Mary az analyst, John a PM, Winston az architect, Amelia a fejlesztő. A CIS-ben Carson a brainstormer, Maya a design thinking specialist, Caravaggio a prezentáció szakértő — vele csináltam a slide-okat. És Party Mode-ban együtt dolgoznak — pl. PM + Architect közösen vitatják meg a döntést."
     </aside>
 </section>
 
@@ -531,27 +539,85 @@ $ curl localhost:8082/library/api/books</code></pre>
     <h2>BMAD a migráción túl</h2>
     <div class="three-col">
         <div>
-            <p class="accent" style="font-size:0.9em;"><strong>Sprint Management</strong></p>
-            <p class="xsmall"><code>/bmad-sprint-planning</code><br>Sprint terv generálás az epics-ből</p>
-            <p class="xsmall"><code>/bmad-sprint-status</code><br>Valós idejű sprint állapot</p>
+            <p class="accent" style="font-size:0.9em;"><strong>BMM Sprint flow</strong></p>
+            <p class="xsmall"><code>/bmad-sprint-planning</code><br>Sprint terv az epics-ből</p>
+            <p class="xsmall"><code>/bmad-create-story</code><br>Kontextussal feltöltött story</p>
+            <p class="xsmall"><code>/bmad-dev-story</code><br>Story implementáció</p>
+            <p class="xsmall"><code>/bmad-sprint-status</code><br>Valós idejű állapot + risks</p>
             <p class="xsmall"><code>/bmad-retrospective</code><br>Epic utáni retro</p>
+            <p class="xsmall"><code>/bmad-correct-course</code><br>Sprint közbeni pivot</p>
         </div>
         <div>
-            <p class="purple" style="font-size:0.9em;"><strong>Quality & Testing</strong></p>
-            <p class="xsmall"><code>/bmad-testarch-*</code><br>Test framework setup</p>
-            <p class="xsmall"><code>/bmad-qa-generate-e2e-tests</code><br>E2E teszt generálás</p>
-            <p class="xsmall"><code>/bmad-code-review</code><br>Adversarial code review</p>
+            <p class="ok" style="font-size:0.9em;"><strong>TEA Test Architecture</strong></p>
+            <p class="xsmall"><code>/bmad-testarch-framework</code><br>Playwright/Cypress setup</p>
+            <p class="xsmall"><code>/bmad-testarch-atdd</code><br>Acceptance test scaffold</p>
+            <p class="xsmall"><code>/bmad-testarch-test-design</code><br>System-level test plan</p>
+            <p class="xsmall"><code>/bmad-testarch-nfr</code><br>Performance, security, reliability</p>
+            <p class="xsmall"><code>/bmad-testarch-ci</code><br>CI/CD quality pipeline</p>
+            <p class="xsmall"><code>/bmad-testarch-trace</code><br>Traceability matrix</p>
         </div>
         <div>
-            <p class="orange" style="font-size:0.9em;"><strong>UX & Design</strong></p>
-            <p class="xsmall"><code>/bmad-create-ux-design</code><br>UX specifikáció</p>
-            <p class="xsmall"><code>/wds-*</code><br>Web Design System</p>
-            <p class="xsmall"><code>/bmad-cis-*</code><br>Innovation & creativity</p>
+            <p class="orange" style="font-size:0.9em;"><strong>WDS — 8 lépéses UX</strong></p>
+            <p class="xsmall"><code>/wds-1-project-brief</code></p>
+            <p class="xsmall"><code>/wds-2-trigger-mapping</code></p>
+            <p class="xsmall"><code>/wds-3-scenarios</code></p>
+            <p class="xsmall"><code>/wds-4-ux-design</code></p>
+            <p class="xsmall"><code>/wds-5-agentic-development</code></p>
+            <p class="xsmall"><code>/wds-6-asset-generation</code></p>
+            <p class="xsmall"><code>/wds-7-design-system</code></p>
+            <p class="xsmall"><code>/wds-8-product-evolution</code></p>
         </div>
     </div>
-    <p class="fragment small"><br>A migráció csak egy use case. A BMAD <span class="accent">bármilyen szoftverprojektre</span> használható.</p>
+    <p class="fragment small"><br>A migráció <span class="accent">egyetlen use case</span>. A BMAD bármilyen szoftverprojektre használható.</p>
     <aside class="notes">
-        "A migráció csak a jéghegy csúcsa. A BMAD sprint management-et, tesztelést, UX tervezést, code review-t is támogat. A TEA modul teljes test architecture-t épít. A WDS modul UX design-t. Mindegyik ugyanazzal a módszertannal: strukturált, AI-támogatott, dokumentált."
+        "A migráció csak a jéghegy csúcsa. A BMM sprint management-et és code review-t támogat. A TEA teljes test architecture-t épít — ATDD scaffold, NFR assessment, traceability matrix, CI pipeline. A WDS pedig egy 8 lépéses UX folyamat: brief → trigger mapping → scenarios → UX design → agentic dev → asset generation → design system → product evolution. Mindegyik ugyanazzal a strukturált megközelítéssel."
+    </aside>
+</section>
+
+<section>
+    <h2>Core: Bármelyik fázisban használható</h2>
+    <div class="three-col" style="font-size:0.8em;">
+        <div>
+            <p class="accent"><strong>Mélyítés</strong></p>
+            <p class="xsmall"><code>/bmad-advanced-elicitation</code><br>50+ módszer (Pre-mortem,<br>Shark Tank, First Principles...)</p>
+            <p class="xsmall"><code>/bmad-party-mode</code><br>Multi-agent megbeszélés</p>
+            <p class="xsmall"><code>/bmad-brainstorming</code><br>Strukturált ötletelés</p>
+        </div>
+        <div>
+            <p class="warn"><strong>Review</strong></p>
+            <p class="xsmall"><code>/bmad-review-adversarial</code><br>Cinikus review</p>
+            <p class="xsmall"><code>/bmad-review-edge-case</code><br>Edge case hunting</p>
+            <p class="xsmall"><code>/bmad-editorial-review</code><br>Prose / structure review</p>
+        </div>
+        <div>
+            <p class="purple"><strong>Dokumentum</strong></p>
+            <p class="xsmall"><code>/bmad-distillator</code><br>LLM-optimalizált tömörítés</p>
+            <p class="xsmall"><code>/bmad-shard-doc</code><br>Nagy doksik felbontása</p>
+            <p class="xsmall"><code>/bmad-index-docs</code><br>Index generálás</p>
+        </div>
+    </div>
+    <p class="fragment small"><br>Ezek <span class="accent">orthogonálisak</span> a workflow-hoz — bármikor használhatók.</p>
+    <aside class="notes">
+        "A Core modul tartalmazza azokat az általános funkciókat, amik minden fázisban hasznosak. Az Advanced Elicitation 50+ módszerével (pre-mortem, Shark Tank, Red Team, First Principles) bármelyik döntést mélyítheted. A Party Mode-ban több agent vitázik. A review-k adversarial vagy edge case szempontból néznek rá a kódra/dokumentumra. A distillator pedig a token-hatékony kontextus átadáshoz kell."
+    </aside>
+</section>
+
+<section data-background-color="#1a1428">
+    <h2>BMB: Saját modulok és agentek</h2>
+    <p class="dim small">A BMAD meta-szintje — építsd a saját workflow-d</p>
+    <div class="left" style="font-size:0.85em; margin-top:1em;">
+        <p><code class="purple">/bmad-agent-builder</code> — Saját agent építése<br>
+        <span class="xsmall dim">Pl. egy "DevOps Engineer" agent a saját pipeline-odhoz</span></p>
+        <p class="fragment"><code class="purple">/bmad-workflow-builder</code> — Saját workflow<br>
+        <span class="xsmall dim">Pl. egy "Code Migration" workflow más nyelvekre</span></p>
+        <p class="fragment"><code class="purple">/bmad-module-builder</code> — Komplett modul<br>
+        <span class="xsmall dim">Pl. saját "FinOps" modul a cég cost-management-jéhez</span></p>
+        <p class="fragment"><code class="purple">/bmad-customize</code> — Meglévő agent override-ja<br>
+        <span class="xsmall dim">A céges szabályok ráhúzása a built-in agentekre</span></p>
+    </div>
+    <p class="fragment small"><br>A BMAD nem zárt — <span class="accent">testreszabható és bővíthető</span>.</p>
+    <aside class="notes">
+        "A BMB a BMAD meta-szintje. Nem csak használod a built-in agentekt — sajátot építhetsz. Egy DevOps agent a saját pipeline-odhoz. Egy 'Code Migration' workflow más nyelvekre. Vagy egy komplett FinOps modul a cég cost-management-jéhez. A customize-zal pedig a meglévőket szabhatod a céges szabályaidhoz. Ez nem zárt rendszer."
     </aside>
 </section>
 
@@ -604,16 +670,32 @@ $ curl localhost:8082/library/api/books</code></pre>
 
 <section>
     <h2>BMAD Cheat Sheet</h2>
-    <div class="two-col" style="font-size:0.65em;">
+    <div class="three-col" style="font-size:0.6em;">
         <div>
-            <p class="accent"><strong>Core Workflow</strong></p>
+            <p class="accent"><strong>BMM Workflow</strong></p>
             <p><code>/bmad-document-project</code></p>
             <p><code>/bmad-product-brief</code></p>
             <p><code>/bmad-create-prd</code></p>
             <p><code>/bmad-create-architecture</code></p>
             <p><code>/bmad-create-epics-and-stories</code></p>
             <p><code>/bmad-sprint-planning</code></p>
+            <p><code>/bmad-create-story</code></p>
+            <p><code>/bmad-dev-story</code></p>
             <p><code>/bmad-sprint-status</code></p>
+            <p><code>/bmad-retrospective</code></p>
+        </div>
+        <div>
+            <p class="ok"><strong>Core / TEA / WDS</strong></p>
+            <p><code>/bmad-advanced-elicitation</code></p>
+            <p><code>/bmad-party-mode</code></p>
+            <p><code>/bmad-code-review</code></p>
+            <p><code>/bmad-testarch-framework</code></p>
+            <p><code>/bmad-testarch-atdd</code></p>
+            <p><code>/bmad-testarch-nfr</code></p>
+            <p><code>/wds-1-project-brief</code></p>
+            <p><code>/wds-4-ux-design</code></p>
+            <p><code>/bmad-module-builder</code></p>
+            <p><code>/bmad-help</code> ← bármikor</p>
         </div>
         <div>
             <p class="warn"><strong>Top 5 Migration Pitfall</strong></p>
@@ -624,9 +706,9 @@ $ curl localhost:8082/library/api/books</code></pre>
             <p>5. Mockito strict stubbing</p>
         </div>
     </div>
-    <p class="small dim" style="margin-top:1em;">Demo repo: github.com/[repo-link]</p>
+    <p class="small dim" style="margin-top:0.5em;">Demo repo: github.com/[repo-link]</p>
     <aside class="notes">
-        "Ezt vigyétek haza. A BMAD-CHEAT-SHEET.md is benne van a repóban."
+        "Ezt vigyétek haza. A BMAD-CHEAT-SHEET.md is benne van a repóban — ott a teljes lista."
     </aside>
 </section>
 
