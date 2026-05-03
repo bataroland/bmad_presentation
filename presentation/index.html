@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMAD: Structured AI-Assisted Development</title>
+    <title>BMAD: Strukturált AI-támogatott fejlesztés</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
@@ -15,11 +15,15 @@
             --bmad-dim: #888;
             --bmad-purple: #b197fc;
             --bmad-orange: #ffa94d;
+            --bmad-bg-soft: #0a1628;
+            --bmad-bg-warn: #1a0000;
         }
-        .reveal h1, .reveal h2 { text-transform: none; }
-        .reveal h1 { font-size: 2.2em; }
-        .reveal h2 { font-size: 1.5em; color: var(--bmad-accent); }
-        .reveal h3 { font-size: 1.1em; color: var(--bmad-dim); text-transform: none; }
+        .reveal { font-family: 'Source Sans Pro', sans-serif; }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 { text-transform: none; font-weight: 600; }
+        .reveal h1 { font-size: 2.4em; }
+        .reveal h2 { font-size: 1.5em; color: var(--bmad-accent); margin-bottom: 0.5em; }
+        .reveal h3 { font-size: 1em; color: var(--bmad-dim); }
+        .reveal h4 { font-size: 0.85em; color: var(--bmad-accent); margin: 0.3em 0; }
         .reveal .accent { color: var(--bmad-accent); }
         .reveal .warn { color: var(--bmad-warn); }
         .reveal .ok { color: var(--bmad-ok); }
@@ -29,67 +33,176 @@
         .reveal .small { font-size: 0.7em; }
         .reveal .xsmall { font-size: 0.55em; }
         .reveal .left { text-align: left; }
-        .reveal pre { font-size: 0.55em; width: 100%; }
-        .reveal table { font-size: 0.6em; margin: 0 auto; }
-        .reveal table th { color: var(--bmad-accent); border-bottom: 2px solid var(--bmad-accent); }
-        .reveal table td { border-bottom: 1px solid #333; }
+        .reveal .center { text-align: center; }
+        .reveal pre { font-size: 0.5em; width: 100%; box-shadow: none; }
+        .reveal table { font-size: 0.6em; margin: 0 auto; border-collapse: collapse; }
+        .reveal table th { color: var(--bmad-accent); border-bottom: 2px solid var(--bmad-accent); padding: 0.4em 0.8em; }
+        .reveal table td { border-bottom: 1px solid #333; padding: 0.3em 0.8em; }
+
+        /* Badges */
         .reveal .live-badge {
-            background: var(--bmad-warn);
-            color: white;
-            padding: 4px 16px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.7em;
-            display: inline-block;
-            animation: pulse 2s infinite;
+            background: var(--bmad-warn); color: white;
+            padding: 4px 16px; border-radius: 4px;
+            font-weight: bold; font-size: 0.7em;
+            display: inline-block; animation: pulse 2s infinite;
         }
         .reveal .show-badge {
-            background: var(--bmad-accent);
-            color: black;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.6em;
+            background: var(--bmad-accent); color: black;
+            padding: 4px 12px; border-radius: 4px;
+            font-weight: bold; font-size: 0.6em;
             display: inline-block;
+        }
+        .reveal .demo-instruction {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid var(--bmad-warn);
+            padding: 1em; margin: 0.8em 0;
+            text-align: left; font-size: 0.7em;
+        }
+        .reveal .demo-instruction h4 {
+            color: var(--bmad-warn); margin-top: 0;
         }
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.6; }
         }
+
+        /* Layout helpers */
         .reveal .two-col {
-            display: flex;
-            gap: 2em;
-            text-align: left;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 2em; text-align: left;
         }
-        .reveal .two-col > div { flex: 1; }
         .reveal .three-col {
-            display: flex;
-            gap: 1.5em;
-            text-align: left;
-            font-size: 0.75em;
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.2em; text-align: left;
         }
-        .reveal .three-col > div { flex: 1; }
+        .reveal .four-col {
+            display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.8em; text-align: center;
+        }
+
+        /* Module cards — egységes méret */
+        .reveal .module-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.8em;
+            margin-top: 1em;
+        }
+        .reveal .module-card {
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 0.8em;
+            text-align: left;
+            font-size: 0.65em;
+            min-height: 8em;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
+        .reveal .module-card.bmm { border-color: var(--bmad-accent); }
+        .reveal .module-card.core { border-color: var(--bmad-accent); }
+        .reveal .module-card.cis { border-color: var(--bmad-purple); }
+        .reveal .module-card.wds { border-color: var(--bmad-orange); }
+        .reveal .module-card.tea { border-color: var(--bmad-ok); }
+        .reveal .module-card.bmb { border-color: var(--bmad-dim); }
+        .reveal .module-card .module-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 0.2em;
+        }
+        .reveal .module-card.bmm .module-name,
+        .reveal .module-card.core .module-name { color: var(--bmad-accent); }
+        .reveal .module-card.cis .module-name { color: var(--bmad-purple); }
+        .reveal .module-card.wds .module-name { color: var(--bmad-orange); }
+        .reveal .module-card.tea .module-name { color: var(--bmad-ok); }
+        .reveal .module-card.bmb .module-name { color: var(--bmad-dim); }
+        .reveal .module-card .module-full {
+            font-size: 0.85em;
+            color: var(--bmad-dim);
+            margin-bottom: 0.5em;
+            font-style: italic;
+        }
+        .reveal .module-card .module-desc {
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        /* Phase boxes */
         .reveal .phase-box {
-            border-left: 3px solid var(--bmad-accent);
-            padding: 0.3em 0 0.3em 0.8em;
+            border-left: 4px solid var(--bmad-accent);
+            padding: 0.4em 0 0.4em 0.8em;
             margin: 0.4em 0;
             text-align: left;
             font-size: 0.85em;
+            background: rgba(0,212,255,0.04);
         }
-        .reveal .module-box {
+        .reveal .phase-box.phase1 { border-left-color: var(--bmad-ok); background: rgba(81,207,102,0.04); }
+        .reveal .phase-box.phase2 { border-left-color: var(--bmad-accent); background: rgba(0,212,255,0.04); }
+        .reveal .phase-box.phase3 { border-left-color: var(--bmad-purple); background: rgba(177,151,252,0.04); }
+
+        /* Concept boxes */
+        .reveal .concept-card {
             border: 1px solid #444;
             border-radius: 8px;
-            padding: 0.5em;
-            text-align: center;
-            font-size: 0.75em;
-        }
-        .reveal .module-box.active { border-color: var(--bmad-accent); background: rgba(0,212,255,0.08); }
-        .reveal .arrow { color: var(--bmad-accent); font-size: 1.5em; }
-        .reveal .highlight-box {
-            border: 2px solid var(--bmad-accent);
-            border-radius: 8px;
             padding: 0.8em;
-            margin: 0.5em 0;
+            text-align: left;
+            font-size: 0.7em;
+            background: rgba(0,212,255,0.03);
+        }
+        .reveal .concept-card h4 {
+            color: var(--bmad-accent);
+            margin: 0 0 0.4em 0;
+            font-size: 1.1em;
+        }
+
+        /* Traceability chain */
+        .reveal .chain-item {
+            border: 1px solid var(--bmad-accent);
+            border-radius: 6px;
+            padding: 0.5em 0.8em;
+            margin: 0.3em 0;
+            background: rgba(0,212,255,0.06);
+            text-align: left;
+            font-size: 0.75em;
+            position: relative;
+        }
+        .reveal .chain-item .chain-label {
+            color: var(--bmad-accent);
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        .reveal .chain-arrow {
+            text-align: center;
+            color: var(--bmad-accent);
+            font-size: 1.5em;
+            margin: -0.2em 0;
+        }
+
+        /* Step numbers */
+        .reveal .step-number {
+            display: inline-block;
+            background: var(--bmad-accent);
+            color: black;
+            width: 1.5em; height: 1.5em;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 1.5em;
+            font-weight: bold;
+            margin-right: 0.4em;
+            font-size: 0.9em;
+        }
+
+        /* Comparison table */
+        .reveal .vs-table {
+            width: 100%;
+            font-size: 0.7em;
+        }
+        .reveal .vs-table .col-bad { color: var(--bmad-warn); }
+        .reveal .vs-table .col-good { color: var(--bmad-ok); }
+
+        /* Highlight code annotations */
+        .reveal .code-annotation {
+            color: var(--bmad-orange);
+            font-style: italic;
         }
     </style>
 </head>
@@ -97,368 +210,573 @@
 <div class="reveal">
 <div class="slides">
 
-<!-- ==================== PART 1: HOOK (0-8 min) ==================== -->
+<!-- ═══════════════════════════════════════════════════════════════════
+     PART 1: HOOK & PAIN RECOGNITION (0-7 min)
+     ═══════════════════════════════════════════════════════════════════ -->
 
-<section>
+<section data-background-gradient="linear-gradient(to bottom right, #0a1628, #000)">
     <h1>BMAD</h1>
-    <p class="accent" style="font-size:1.1em;">Business — Manager — Architect — Developer</p>
-    <h3>Strukturált AI-támogatott fejlesztés<br>egy Java migráción keresztül bemutatva</h3>
-    <p class="dim small">Roland Bata | 2026</p>
+    <p class="accent" style="font-size:1.1em; margin-top:0;">Business · Manager · Architect · Developer</p>
+    <p style="margin-top: 1.5em; font-size: 1em;">Strukturált AI-támogatott fejlesztés</p>
+    <p class="dim" style="font-size: 0.8em;">— egy Java 8 → 25 migráción keresztül</p>
+    <p class="dim small" style="margin-top: 2em;">Roland Bata · 2026</p>
     <aside class="notes">
-        "Ma nem egy tool-t mutatok, hanem egy módszertant. A BMAD egy gondolkodásmód — strukturált AI-támogatott fejlesztés, ahol a tervezés megelőzi a kódolást. Egy Java 8 → 25 migráción keresztül mutatom meg, hogyan működik a gyakorlatban."
+        Üdvözlés. KULCS ÜZENET: "Ma nem egy újabb tool-t mutatok be — egy módszertant, ami strukturálttá teszi az AI-támogatott fejlesztést. A Java migráció csak egy use case ehhez."
     </aside>
 </section>
 
 <section>
-    <h2>Ki dolgozik legacy Java-n?</h2>
-    <p class="fragment" style="font-size:1.8em;"><span class="accent">51%</span></p>
-    <p class="fragment dim">...a fejlesztők még legacy verzión van<br><span class="xsmall">— Azul 2025 State of Java Survey, 2000+ válaszadó</span></p>
-    <p class="fragment"><br><span class="warn">Java 8 EOL:</span> 2026. november<br><span class="warn">Spring Boot 1.5 EOL:</span> 2019 óta</p>
+    <h2>Először egy kérdés</h2>
+    <p style="margin-top: 1.5em;">Ki dolgozik <span class="warn">most is</span> Java 8-on vagy 11-en?</p>
+    <p class="fragment" style="font-size: 3em; margin: 1em 0;" class="accent"><span class="accent">51%</span></p>
+    <p class="fragment dim" style="font-size: 0.7em;">a Java fejlesztők még legacy verzión van<br>
+    <em>— Azul 2025 State of Java Survey</em></p>
+    <p class="fragment" style="margin-top: 1em;">
+        <span class="warn">Java 8 EOL:</span> 2026. november · &nbsp;
+        <span class="warn">Spring Boot 1.5 EOL:</span> 2019 óta
+    </p>
     <aside class="notes">
-        "Kézfeltartás — ki fut még Java 8-on? 11-en? Az Azul felmérése szerint a felénk. November után nincs security patch."
+        DEMÓ INSTRUKCIÓ: "Kézfeltartás — ki fut még Java 8-on? 11-en?" Várd meg a kezeket. "Az Azul felmérése szerint a felénk." Hangsúlyozd: "November után nincs public security patch."
     </aside>
 </section>
 
 <section>
-    <h2>A szokásos migrációs történet</h2>
-    <div class="left">
-        <p><span class="dim">Hétfő:</span> "Csak átírom a pom.xml-t, max 2 nap"</p>
-        <p class="fragment"><span class="dim">Kedd:</span> findOne() nem exists... mi?</p>
-        <p class="fragment"><span class="dim">Szerda:</span> javax.crypto is átneveztem jakarta-ra <span class="warn">&#x1F480;</span></p>
-        <p class="fragment"><span class="dim">Csütörtök:</span> A tesztek futnak, az app nem</p>
-        <p class="fragment"><span class="dim">Péntek:</span> "Ki írta ezt a kódot?!" <span class="dim">(én voltam)</span></p>
+    <h2>Az ismerős forgatókönyv</h2>
+    <p class="dim small">Tipikus migrációs hét egy középvállalati fejlesztőcsapatnál:</p>
+    <div class="left" style="margin-top: 1em; font-size: 0.85em;">
+        <p><span class="accent">📅 Hétfő reggel</span> · <em>Becslés:</em> "2 nap, max 3"</p>
+        <p class="fragment"><span class="accent">📅 Hétfő délután</span> · pom.xml átírva, 200 compile error</p>
+        <p class="fragment"><span class="accent">📅 Kedd</span> · "<code>findOne()</code> nem létezik?! De a Spring docs szerint..."</p>
+        <p class="fragment"><span class="accent">📅 Szerda</span> · sed-del cseréltük a javax-ot, az SSL eltört <span class="warn">💀</span></p>
+        <p class="fragment"><span class="accent">📅 Csütörtök</span> · Tesztek zöldek, de a JSON formátum más lett</p>
+        <p class="fragment"><span class="accent">📅 Péntek</span> · "Holnap újra próbáljuk" → következő szprint</p>
     </div>
-    <p class="fragment small dim"><br>Szétszórt jegyzetek. Nem dokumentált döntések. Production-ben felfedezett bugok.</p>
+    <p class="fragment dim small" style="margin-top: 1em;">
+        Szétszórt jegyzetek · Nem dokumentált döntések · Production-ben felfedezett bugok
+    </p>
     <aside class="notes">
-        "Ismerős? A legtöbb csapat így migrálja — 'majd kitaláljuk menet közben.' Ez a without-BMAD világ."
+        "Ismerős? A legtöbb csapat így migrál: 'majd kitaláljuk menet közben.' Egy egyszerű pom.xml csere → kaszkádos hibák. Szerdai SSL-eset: később megmutatom miért. NE menj bele részletesen — még csak a fájdalmat építjük."
     </aside>
 </section>
 
 <section>
     <h2>Mi lenne, ha...</h2>
-    <p class="fragment">...a migráció <span class="accent">ELŐTT</span> lenne egy komplett terved?</p>
-    <p class="fragment">Feltérképezve a kódbázist. Azonosítva a kockázatokat.</p>
-    <p class="fragment">Fázisonként lebontva. Story-nként implementálva.</p>
-    <p class="fragment">Minden döntés dokumentálva és visszakövethető.</p>
-    <p class="fragment"><br><strong>...mielőtt egyetlen sort módosítanál?</strong></p>
+    <div class="left" style="margin-top: 1.5em; font-size: 0.95em;">
+        <p class="fragment">✓ Egy parancs <span class="accent">feltérképezné</span> a kódbázist?</p>
+        <p class="fragment">✓ Az AI <span class="accent">azonosítaná a kockázatokat</span> előre?</p>
+        <p class="fragment">✓ Lenne <span class="accent">fázisonkénti terv</span> minden lépéshez?</p>
+        <p class="fragment">✓ Minden döntés <span class="accent">dokumentálva és visszakövethető</span> lenne?</p>
+    </div>
+    <p class="fragment" style="margin-top: 1.5em; font-size: 1.1em;">
+        <strong>...mielőtt egyetlen sort módosítanál?</strong>
+    </p>
+    <p class="fragment accent" style="margin-top: 1em;">Ez a BMAD.</p>
     <aside class="notes">
-        "Ez nem utópia. Ez a BMAD. Most megmutatom, hogyan."
+        Lassan építsd a fragmentet. Az utolsó kérdés a kulcs: mielőtt módosítanál. Hangsúlyozd a szót.
     </aside>
 </section>
 
-<!-- ==================== PART 2: BMAD ECOSYSTEM (8-20 min) ==================== -->
+<!-- ═══════════════════════════════════════════════════════════════════
+     PART 2: BMAD INTRODUCTION (7-15 min)
+     ═══════════════════════════════════════════════════════════════════ -->
 
 <section data-background-color="#0a1628">
-    <h2>A BMAD ökoszisztéma</h2>
-    <p class="small dim">Nem egy tool — egy módszertan 6 modullal</p>
-    <div class="three-col" style="margin-top:1em;">
-        <div>
-            <div class="module-box active">
-                <strong class="accent">Core</strong><br>
-                Általános funkciók<br>
-                <span class="xsmall">Party Mode, Elicitation<br>Review-k, Brainstorming<br>Distillator, Shard Doc</span>
-            </div>
-            <div class="module-box active" style="margin-top:0.5em;">
-                <strong class="accent">BMM</strong><br>
-                Business-Manager-<br>Architect-Developer<br>
-                <span class="xsmall">Brief, PRD, Architecture<br>Epics, Stories, Sprint mgmt<br>Code Review, QA tests</span>
-            </div>
+    <h2>Mi a BMAD?</h2>
+    <div class="two-col" style="margin-top: 1em;">
+        <div class="concept-card">
+            <h4>📐 Módszertan</h4>
+            <p style="margin: 0.3em 0;">Strukturált fázisok</p>
+            <p style="margin: 0.3em 0;">Explicit döntések</p>
+            <p style="margin: 0.3em 0;">Visszakövethetőség</p>
+            <p style="margin: 0.3em 0;">Phase gate-ek</p>
         </div>
-        <div>
-            <div class="module-box" style="border-color: var(--bmad-purple);">
-                <strong class="purple">CIS</strong><br>
-                Creative & Innovation<br>
-                <span class="xsmall">Brainstorming, Design Thinking<br>Innovation Strategy<br>Storytelling, Presentations</span>
-            </div>
-            <div class="module-box" style="margin-top:0.5em; border-color: var(--bmad-orange);">
-                <strong class="orange">WDS</strong><br>
-                Web Design System<br>
-                <span class="xsmall">8 lépéses UX folyamat<br>Brief→Trigger→Scenarios<br>→UX Design→Agentic Dev</span>
-            </div>
-        </div>
-        <div>
-            <div class="module-box" style="border-color: #51cf66;">
-                <strong class="ok">TEA</strong><br>
-                Test Architecture<br>
-                <span class="xsmall">ATDD, Test Design<br>NFR Assessment<br>CI Pipeline, Traceability</span>
-            </div>
-            <div class="module-box" style="margin-top:0.5em;">
-                <strong class="dim">BMB</strong><br>
-                Builder (meta)<br>
-                <span class="xsmall">Custom Agents<br>Custom Workflows<br>Saját modulok</span>
-            </div>
+        <div class="concept-card">
+            <h4>🔧 Eszközkészlet</h4>
+            <p style="margin: 0.3em 0;">AI agentek (specializált)</p>
+            <p style="margin: 0.3em 0;">Slash parancsok</p>
+            <p style="margin: 0.3em 0;">6 modul</p>
+            <p style="margin: 0.3em 0;">Bővíthető (BMB)</p>
         </div>
     </div>
+    <p class="fragment" style="margin-top: 1.5em;">
+        A módszertan a fontos. Az eszközök <span class="accent">támogatják</span> — nem helyettesítik.
+    </p>
     <aside class="notes">
-        "A BMAD nem egyetlen script — ez egy ökoszisztéma. 6 modul. A Core az alap (Party Mode, elicitation, review-k). A BMM a Business-Manager-Architect-Developer workflow. A CIS a kreatív munkához. A WDS UX design 8 lépésben. A TEA test architecture. A BMB-vel pedig SAJÁT modulokat építhetsz — meta-szint."
+        "Két dolog egyben. A módszertan a stratégia, az eszközök a taktika. Sok cég AI-t vesz, de módszertan nélkül csak gyorsabban produkál rosszat. A BMAD-ban a két dolog együtt jár."
+    </aside>
+</section>
+
+<section data-background-color="#0a1628">
+    <h2>A BMAD ökoszisztéma — 6 modul</h2>
+    <div class="module-grid">
+        <div class="module-card core fragment">
+            <div class="module-name">Core</div>
+            <div class="module-full">Általános alapok</div>
+            <div class="module-desc">Minden modulhoz használható: párbeszédek, mélyítés, review-k, dokumentum kezelés</div>
+        </div>
+        <div class="module-card bmm fragment">
+            <div class="module-name">BMM</div>
+            <div class="module-full">Business Manager<br>Architect Developer</div>
+            <div class="module-desc">A teljes szoftverfejlesztési ciklus: tervezés, architektúra, sprint, kód</div>
+        </div>
+        <div class="module-card cis fragment">
+            <div class="module-name">CIS</div>
+            <div class="module-full">Creative & Innovation</div>
+            <div class="module-desc">Kreatív munka: ötletelés, design thinking, prezentáció, storytelling</div>
+        </div>
+        <div class="module-card wds fragment">
+            <div class="module-name">WDS</div>
+            <div class="module-full">Web Design System</div>
+            <div class="module-desc">8 lépéses UX folyamat: brief-től a design system-ig</div>
+        </div>
+        <div class="module-card tea fragment">
+            <div class="module-name">TEA</div>
+            <div class="module-full">Test Architecture</div>
+            <div class="module-desc">Tesztelési stratégia: ATDD, NFR mérés, CI pipeline, traceability</div>
+        </div>
+        <div class="module-card bmb fragment">
+            <div class="module-name">BMB</div>
+            <div class="module-full">Builder (meta-szint)</div>
+            <div class="module-desc">Saját agentek, workflow-k, modulok építése — testreszabás</div>
+        </div>
+    </div>
+    <p class="fragment dim small" style="margin-top: 1em;">
+        Ma a <span class="accent">BMM</span>-re fókuszálunk a migrációhoz, de a többit is megemlítem.
+    </p>
+    <aside class="notes">
+        Animáció: minden modul külön fragment. Mondd: "Core az alap, BMM a fő munkafolyamat, CIS a kreativitáshoz, WDS UX-hez, TEA teszteléshez, BMB pedig saját bővítéshez. Egységes méret — nem azt sugallja, hogy az egyik fontosabb. A migrációhoz a BMM-et használjuk."
     </aside>
 </section>
 
 <section>
-    <h2>A BMAD szereplők</h2>
-    <div class="three-col" style="font-size:0.85em;">
+    <h2>Specializált agentek — egy virtuális csapat</h2>
+    <div class="three-col" style="font-size: 0.75em; margin-top: 1em;">
         <div>
-            <p class="accent" style="font-size:0.9em;"><strong>BMM csapat</strong></p>
-            <p><span class="accent">Mary</span> — Business Analyst</p>
-            <p><span class="accent">Paige</span> — Tech Writer</p>
-            <p><span class="accent">John</span> — Product Manager</p>
-            <p><span class="accent">Sally</span> — UX Designer</p>
-            <p><span class="accent">Winston</span> — Architect</p>
-            <p><span class="accent">Amelia</span> — Developer</p>
+            <h4 class="accent">BMM csapat</h4>
+            <p><strong>Mary</strong> — Business Analyst<br><span class="dim xsmall">discovery, kontextus</span></p>
+            <p><strong>John</strong> — PM<br><span class="dim xsmall">PRD, követelmények</span></p>
+            <p><strong>Sally</strong> — UX Designer<br><span class="dim xsmall">user flow-k, UI design</span></p>
+            <p><strong>Winston</strong> — Architect<br><span class="dim xsmall">technikai döntések</span></p>
+            <p><strong>Amelia</strong> — Developer<br><span class="dim xsmall">story implementáció</span></p>
         </div>
         <div>
-            <p class="purple" style="font-size:0.9em;"><strong>CIS csapat</strong></p>
-            <p><span class="purple">Carson</span> — Brainstorming</p>
-            <p><span class="purple">Maya</span> — Design Thinking</p>
-            <p><span class="purple">Dr. Quinn</span> — Problem Solver</p>
-            <p><span class="purple">Victor</span> — Innovation</p>
-            <p><span class="purple">Sophia</span> — Storytelling</p>
-            <p><span class="purple">Caravaggio</span> — Presentations</p>
+            <h4 class="purple">CIS csapat</h4>
+            <p><strong>Carson</strong> — Brainstorming<br><span class="dim xsmall">strukturált ötletelés</span></p>
+            <p><strong>Maya</strong> — Design Thinking<br><span class="dim xsmall">empátia-vezérelt design</span></p>
+            <p><strong>Victor</strong> — Innovation<br><span class="dim xsmall">disruption stratégia</span></p>
+            <p><strong>Sophia</strong> — Storytelling<br><span class="dim xsmall">narratív keretek</span></p>
+            <p><strong>Caravaggio</strong> — Presentations<br><span class="dim xsmall">vizuális kommunikáció ✨</span></p>
         </div>
         <div>
-            <p class="ok" style="font-size:0.9em;"><strong>TEA & WDS</strong></p>
-            <p><span class="ok">Murat</span> — Test Architect (TEA)</p>
-            <p><span class="orange">Freya</span> — UX Designer (WDS)</p>
-            <p><span class="orange">Saga</span> — Analyst (WDS)</p>
+            <h4 class="ok">TEA & WDS</h4>
+            <p><strong>Murat</strong> (TEA) — Test Architect<br><span class="dim xsmall">tesztelési stratégia</span></p>
+            <p><strong>Freya</strong> (WDS) — UX Designer<br><span class="dim xsmall">design system fókusz</span></p>
+            <p><strong>Saga</strong> (WDS) — Analyst<br><span class="dim xsmall">UX discovery</span></p>
             <br>
-            <p class="dim small">+ generic review agents:<br>Adversarial, Edge Case Hunter</p>
+            <p class="dim xsmall">+ Mary, John, Winston is "vezeti" a megfelelő workflow-t</p>
         </div>
     </div>
-    <p class="fragment small"><br>Mindegyik agent specializált — és <span class="accent">Party Mode</span>-ban együtt dolgoznak.</p>
+    <p class="fragment small" style="margin-top: 1em;">
+        Mindegyik specializált. <span class="accent">Party Mode</span>-ban közösen vitáznak.
+    </p>
     <aside class="notes">
-        "12+ specializált agent. Az architect nem a kódot írja, a dev nem a PRD-t. A BMM-ben Mary az analyst, John a PM, Winston az architect, Amelia a fejlesztő. A CIS-ben Carson a brainstormer, Maya a design thinking specialist, Caravaggio a prezentáció szakértő — vele csináltam a slide-okat. És Party Mode-ban együtt dolgoznak — pl. PM + Architect közösen vitatják meg a döntést."
+        "Nem egy nagy AI — több kicsi, mindegyik egy szerepkörbe specializálódva. Mint egy valódi csapat: az architect nem írja a PRD-t, a dev nem hoz architektúra döntést. Caravaggio segített a slide-okkal, amit most láttok. Party Mode-ban össze tudod őket terelni egy beszélgetésbe."
     </aside>
 </section>
 
-<section>
-    <h2>A mai demo: BMM workflow</h2>
-    <div style="font-size:0.8em;">
-        <div class="phase-box fragment">
-            <strong class="accent">1. Document Project</strong> — Feltérképezés <span class="dim">→ docs/index.md</span>
+<section data-background-color="#0a1628">
+    <h2>Kulcs fogalmak — amiket használni fogunk</h2>
+    <div class="two-col" style="margin-top: 1em;">
+        <div class="concept-card fragment">
+            <h4>📝 Product Brief</h4>
+            <p>A migráció <strong>víziója</strong>. Mit akarunk elérni, kinek, milyen scope-ban.</p>
         </div>
-        <div class="phase-box fragment">
-            <strong class="accent">2. Product Brief</strong> — Vízió & scope <span class="dim">→ product-brief.md</span>
+        <div class="concept-card fragment">
+            <h4>📋 PRD (Product Requirements)</h4>
+            <p><strong>Funkcionális (FR)</strong> és <strong>nem-funkcionális (NFR)</strong> követelmények. Mérhető siker.</p>
         </div>
-        <div class="phase-box fragment">
-            <strong class="accent">3. PRD</strong> — 34 FR, 6 NFR, journeys <span class="dim">→ prd.md</span>
+        <div class="concept-card fragment">
+            <h4>🏗️ Architecture + ADR</h4>
+            <p><strong>Architecture Decision Record</strong> — egy explicit technikai döntés indoklással.</p>
         </div>
-        <div class="phase-box fragment">
-            <strong class="accent">4. Architecture</strong> — 8 ADR, fázisos terv <span class="dim">→ architecture.md</span>
+        <div class="concept-card fragment">
+            <h4>📦 Epic + Story</h4>
+            <p>Az <strong>Epic</strong> egy nagyobb fázis, a <strong>Story</strong> egy implementálható feladat.</p>
         </div>
-        <div class="phase-box fragment">
-            <strong class="accent">5. Epics & Stories</strong> — 4 epic, 21 story <span class="dim">→ epics.md</span>
+        <div class="concept-card fragment">
+            <h4>🚪 Phase Gate</h4>
+            <p>Validációs pont: zöld build, response parity, tesztek átmennek — különben nincs továbblépés.</p>
         </div>
-        <div class="phase-box fragment" style="border-left-color: var(--bmad-orange);">
-            <strong class="orange">6. Sprint Planning</strong> — Sprint plan generálás <span class="dim">→ sprint-plan.md</span>
-        </div>
-        <div class="phase-box fragment" style="border-left-color: var(--bmad-orange);">
-            <strong class="orange">7. Implementáció</strong> — Story-nkénti végrehajtás + sprint status
-        </div>
-    </div>
-    <aside class="notes">
-        "7 lépés. Mindegyik épít az előzőre. Mindegyik dokumentumot produkál. A végén nem csak kód van — hanem egy komplett döntési láncolat."
-    </aside>
-</section>
-
-<section>
-    <h2>Advanced Elicitation</h2>
-    <p class="small">Minden fázisnál mélyíthetők a döntések</p>
-    <div class="two-col" style="font-size:0.7em;">
-        <div>
-            <p class="accent">Módszerek:</p>
-            <p>Pre-mortem Analysis</p>
-            <p>Shark Tank Pitch</p>
-            <p>Red Team vs Blue Team</p>
-            <p>First Principles</p>
-            <p>User Persona Focus Group</p>
-        </div>
-        <div>
-            <p class="accent">Példa a demóból:</p>
-            <p>A <span class="warn">javax.crypto csapda</span> egy Pre-mortem Analysis-ben derült ki</p>
-            <p class="fragment"><br>A <span class="ok">fázisos migráció</span> döntés egy First Principles Analysis-ben kristályosodott ki</p>
-            <p class="fragment"><br>A <span class="ok">Springfox inkompatibilitás</span> egy Reverse Engineering-gel jött elő</p>
+        <div class="concept-card fragment">
+            <h4>🔗 Traceability</h4>
+            <p>Minden story → epic → architecture → PRD → brief. <strong>Visszakövethetőség</strong>.</p>
         </div>
     </div>
     <aside class="notes">
-        "Minden fázisnál választhatsz: [A] Advanced Elicitation — 50 módszer közül válogatva mélyíted a döntéseket. [P] Party Mode — az agentek együtt dolgoznak. Ez a demóban 5 kört futottunk a PRD-nél — és minden körben jobb lett."
+        ELSŐ ALKALOMMAL VEZETJÜK BE A FOGALMAKAT. Lassan, mindegyiket. Ezek többször visszajönnek a slide-okon. Mondd: "Ezek lesznek a kulcsszavaink. PRD, ADR, Story — ne ijedjetek meg, mindegyiket használni fogjuk és látni fogjuk."
     </aside>
 </section>
 
-<!-- ==================== PART 3: DEMO PROJECT (20-30 min) ==================== -->
+<!-- ═══════════════════════════════════════════════════════════════════
+     PART 3: DEMO PROJECT + LIVE ORIGINAL (15-22 min)
+     ═══════════════════════════════════════════════════════════════════ -->
 
 <section>
     <h2>A demo projekt</h2>
-    <pre><code class="language-plaintext">Library API — Könyvtár-kezelő REST API
+    <pre><code class="language-plaintext" style="text-align: center;">Library API — Könyvtár-kezelő REST API
 
-Java 8 / Spring Boot 1.5.22 / WAR / Tomcat
-├── 3 entitás (Book, Member, Loan)
-├── 12 REST végpont
-├── javax.persistence, java.util.Date, JUnit 4
-└── 14 forrásfájl</code></pre>
-    <p class="fragment small dim">Szándékosan kicsi. De tartalmazza az összes tipikus migrációs kihívást.</p>
+  Java 8 / Spring Boot 1.5.22 / WAR / Tomcat
+  ├── 3 entitás (Book, Member, Loan)
+  ├── 12 REST végpont
+  ├── javax.persistence, java.util.Date
+  ├── JUnit 4, Springfox Swagger 2
+  └── 14 forrásfájl</code></pre>
+    <p class="dim small" style="margin-top: 1em;">
+        Szándékosan kicsi — átlátható. <br>
+        De minden tipikus migrációs kihívást tartalmaz.
+    </p>
     <aside class="notes">
-        "14 fájl. Kicsi, de minden benne van: javax namespace, régi date API, anonymous class-ok, WAR packaging. Most megmutatom, mit talált a BMAD."
+        "Egy kis könyvtár-kezelő. 14 fájl. Nem éles termék — demó. De minden tipikus 2010-es éveken átívelő pattern benne van."
     </aside>
 </section>
 
 <section>
-    <h2><span class="show-badge">SHOW</span> BMAD Artifacts</h2>
-    <div class="two-col" style="font-size:0.7em;">
-        <div>
-            <p class="accent">Amit a BMAD generált:</p>
-            <p>docs/ — 6 dokumentum (auto scan)</p>
-            <p>product-brief.md — vízió + distillate</p>
-            <p>prd.md — 472 sor, 34 FR</p>
-            <p>architecture.md — 520 sor, 8 ADR</p>
-            <p>epics.md — 550 sor, 21 story</p>
+    <h2><span class="live-badge">LIVE</span> Az eredeti alkalmazás</h2>
+    <div class="demo-instruction">
+        <h4>🎬 DEMÓ LÉPÉSEK</h4>
+        <p><strong>1.</strong> Nyisd meg böngészőben: <code class="accent">localhost:8081/library/swagger-ui.html</code></p>
+        <p><strong>2.</strong> Mutasd a Swagger UI-t: <em>"12 endpoint, klasszikus Springfox kinézet"</em></p>
+        <p><strong>3.</strong> Bontsd ki <code>GET /api/books</code> → <strong>Try it out</strong> → <strong>Execute</strong></p>
+        <p><strong>4.</strong> Mutass rá a JSON-re: <code>"createdAt": "2026-04-07T15:44:56"</code></p>
+        <p><strong>5.</strong> Opcionális: H2 console <code>localhost:8081/library/h2-console</code></p>
+    </div>
+    <p class="dim small">Ez az alkalmazás, amit migrálunk. Java 8, javax.*, régi date API.</p>
+    <aside class="notes">
+        Mielőtt megnyitod a böngészőt: ellenőrizd, hogy fut az app a 8081-en. Ha nem, terminálban: `sdk use java 8.0.482-tem && git checkout b93e61e && mvn spring-boot:run`. Hagyj 30 másodpercet az indulásra. Mondd: "Ez egy működő alkalmazás. 14 fájl, 12 endpoint, és fut."
+    </aside>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PART 4: BMAD WORKFLOW WALKTHROUGH (22-42 min)
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<section>
+    <h2>A BMM workflow — 5 fázis</h2>
+    <div style="margin-top: 1em;">
+        <div class="phase-box fragment">
+            <span class="step-number">1</span>
+            <strong>/bmad-document-project</strong> — <em>Megérti, amink van</em>
         </div>
-        <div>
-            <p class="accent">Összesen:</p>
-            <p style="font-size:2em;" class="accent">~2000 sor</p>
-            <p>tervezési dokumentáció</p>
-            <p>14 forrásfájlra</p>
-            <p class="fragment"><br class="dim">Overhead? Vagy befektetés?</p>
+        <div class="phase-box fragment">
+            <span class="step-number">2</span>
+            <strong>/bmad-product-brief</strong> — <em>Definiálja a víziót</em>
+        </div>
+        <div class="phase-box fragment">
+            <span class="step-number">3</span>
+            <strong>/bmad-create-prd</strong> — <em>Részletezi a követelményeket</em>
+        </div>
+        <div class="phase-box fragment">
+            <span class="step-number">4</span>
+            <strong>/bmad-create-architecture</strong> — <em>Explicit technikai döntések</em>
+        </div>
+        <div class="phase-box fragment">
+            <span class="step-number">5</span>
+            <strong>/bmad-create-epics-and-stories</strong> — <em>Implementálható feladatok</em>
         </div>
     </div>
+    <p class="fragment dim small" style="margin-top: 1em;">
+        Mindegyik dokumentumot produkál. Mindegyik épít az előzőre. <br>
+        És minden lépés között <span class="accent">"mélyítheted"</span> a döntéseket — erről mindjárt.
+    </p>
     <aside class="notes">
-        SHOW: Nyisd meg a _bmad-output/planning-artifacts/ mappát VS Code-ban. Mutasd a fájlokat. "2000 sor dokumentáció 14 fájlra — túl sok? Nem. Mert minden sor egy döntés, amit ELMENTETTÜNK ahelyett, hogy fejben tartanánk."
+        Lassan mindegyik fragment. Mondd hozzá amit csinál. Az utolsó pontban vezesd fel az Advanced Elicitation-t.
     </aside>
 </section>
 
 <section>
-    <h2><span class="show-badge">SHOW</span> PRD részletek</h2>
-    <div class="left" style="font-size:0.75em;">
-        <p class="accent">User Journeys — nem felhasználók, hanem a DEMO közönsége:</p>
-        <p class="fragment">Roland (Presenter) — hogyan készül el a demó</p>
-        <p class="fragment">Kata (Audience) — "Ez működne a mi 300 fájlunkon?"</p>
-        <p class="fragment">Gergő (Explorer) — klónozza a repot és ellenőrzi</p>
+    <h2><span class="show-badge">SHOW</span> 1. fázis: Document Project eredménye</h2>
+    <div class="demo-instruction">
+        <h4>📺 MIT MUTASS</h4>
+        <p><strong>1.</strong> VS Code: nyisd meg a <code>docs/</code> mappát</p>
+        <p><strong>2.</strong> <code>docs/index.md</code> — projekt áttekintés</p>
+        <p><strong>3.</strong> <code>docs/architecture.md</code> — automatikusan felismert architektúra (3-tier layered)</p>
+        <p><strong>4.</strong> <code>docs/api-contracts.md</code> — 12 endpoint inventár</p>
+        <p><strong>5.</strong> <code>docs/data-models.md</code> — 3 entitás, 2 reláció</p>
     </div>
-    <p class="fragment small"><br>A PRD <span class="accent">5 elicitation kört</span> futott minden szekciónál:<br>Pre-mortem, Shark Tank, First Principles, Self-Consistency, Reverse Engineering</p>
+    <p class="small" style="margin-top: 1em;">
+        Egy parancs. <span class="accent">~30 perc</span>. 6 dokumentum.<br>
+        <span class="dim">Nem nekem kellett fejből elmondanom, hogy "ja, ott valahol van egy findOne..."</span>
+    </p>
     <aside class="notes">
-        SHOW: Nyisd meg a prd.md-t, scrollozz a User Journeys szekcióhoz. "A PRD-ben 3 journey van — de nem a Library API felhasználóiról szól, hanem a PREZENTÁCIÓ közönségéről. A BMAD kikényszeríti, hogy gondolkodj a valódi felhasználókon." Mutasd a Success Criteria táblát.
+        VS Code splitscreen vagy gyors váltás ablakok között. "Nézzük meg, mit talált a BMAD a kódbázisunkban." Görgesd át a docs/index.md-t. Mutasd a táblázatokat.
+    </aside>
+</section>
+
+<section>
+    <h2><span class="show-badge">SHOW</span> 2. fázis: Product Brief</h2>
+    <div class="demo-instruction">
+        <h4>📺 MIT MUTASS</h4>
+        <p><strong>1.</strong> Nyisd: <code>_bmad-output/planning-artifacts/product-brief-library-api-migration.md</code></p>
+        <p><strong>2.</strong> <strong>Executive Summary</strong> — a vízió 3 bekezdésben</p>
+        <p><strong>3.</strong> <strong>What Makes This Special</strong> — miért nem csak "egy migráció"</p>
+        <p><strong>4.</strong> <strong>Scope</strong> — mit NEM csinálunk (auth, CI/CD, GraalVM)</p>
+    </div>
+    <p class="small" style="margin-top: 1em;">
+        A scope kikényszeríti, hogy <span class="accent">előre eldöntsd</span>:<br>
+        <em>"Most ezt csináljuk. Ezt nem. Erre most nem érünk rá."</em>
+    </p>
+    <aside class="notes">
+        "A brief nem csak egy 'cél' — ez egy szerződés a jövőddel. Mit fogunk csinálni, mit nem. A scope határok itt dőlnek el, nem a sprint közepén."
+    </aside>
+</section>
+
+<section data-background-color="#0a1628">
+    <h2>Advanced Elicitation — mélyítés</h2>
+    <p class="dim small">Minden fázis után kérheted: "Mélyítsd el a döntéseket"</p>
+    <div class="three-col" style="font-size: 0.7em; margin-top: 1em;">
+        <div class="concept-card">
+            <h4 class="warn">Pre-mortem Analysis</h4>
+            <p>"Tegyük fel, hogy a projekt 6 hónap múlva megbukott. Mi vezetett oda?" → kockázatok visszafelé</p>
+        </div>
+        <div class="concept-card">
+            <h4 class="warn">Shark Tank Pitch</h4>
+            <p>Szkeptikus befektetők kérdezik az ötletet. Hol gyenge? Mi nem világos? <em>Üzleti stresszteszt.</em></p>
+        </div>
+        <div class="concept-card">
+            <h4 class="warn">Red Team vs Blue Team</h4>
+            <p>Az egyik AI támadja, a másik védi a koncepciót. Biztonsági/architekturális hibákat vadász.</p>
+        </div>
+        <div class="concept-card fragment">
+            <h4 class="ok">First Principles</h4>
+            <p>"Mi az alapfeltevés? Tényleg igaz?" → Lebontás alapelvekig.</p>
+        </div>
+        <div class="concept-card fragment">
+            <h4 class="ok">User Persona Focus Group</h4>
+            <p>Több persona reagál ugyanarra a megoldásra. Eltérő szempontok.</p>
+        </div>
+        <div class="concept-card fragment">
+            <h4 class="ok">Reverse Engineering</h4>
+            <p>"Tegyük fel, ez a megoldás működik. Hogyan jutottunk ide?" → fordított gondolkodás.</p>
+        </div>
+    </div>
+    <p class="fragment small" style="margin-top: 1em;">
+        <strong>50+ módszer</strong>. Bármelyik fázisra alkalmazható. <span class="accent">Mindegyik más szögből támadja a döntést.</span>
+    </p>
+    <aside class="notes">
+        Lassan mindegyik kártya. Magyarázd MIT csinál a módszer. "Ezek nem 'fancy AI prompts' — ezek bevett ötletelési és kockázatkezelési módszerek strukturálva. A Pre-mortem például egy ismert risk management technika."
+    </aside>
+</section>
+
+<section>
+    <h2><span class="show-badge">SHOW</span> 3. fázis: PRD eredménye</h2>
+    <div class="demo-instruction">
+        <h4>📺 MIT MUTASS</h4>
+        <p><strong>1.</strong> Nyisd: <code>_bmad-output/planning-artifacts/prd.md</code></p>
+        <p><strong>2.</strong> <strong>Functional Requirements</strong> — görgess végig: 34 FR (FR1, FR2, ...)</p>
+        <p><strong>3.</strong> <strong>User Journeys</strong> — Roland (presenter), Kata (audience), Gergő (explorer)</p>
+        <p><strong>4.</strong> Mutasd: ez nem a Library API felhasználóiról szól, hanem a PREZENTÁCIÓ közönségéről!</p>
+    </div>
+    <p class="fragment small" style="margin-top: 1em;">
+        A PRD <span class="accent">5 elicitation kört</span> futott minden szekciónál.<br>
+        <span class="dim">Pre-mortem, Shark Tank, Self-Consistency, First Principles, Reverse Engineering.</span>
+    </p>
+    <aside class="notes">
+        "A PRD a követelmények szerződése. 34 FR — mindegyik tesztelhető. A user journey érdekes: nem a Library API felhasználóiról szól, hanem a TI-ről, a közönségről. A BMAD kikényszerítette, hogy gondolkodjak rajta."
+    </aside>
+</section>
+
+<section data-background-color="#0a1628">
+    <h2>4. fázis: Architecture — explicit döntések</h2>
+    <p class="small dim">Az ADR (Architecture Decision Record) egy strukturált döntés: <em>kontextus → döntés → indoklás → következmények</em></p>
+    <table style="margin-top: 1em; font-size: 0.7em;">
+        <tr>
+            <th>ADR</th>
+            <th>Döntés</th>
+            <th>Phase</th>
+        </tr>
+        <tr class="fragment"><td><strong>001</strong></td><td>Fázisos migráció (1.5→2.7→3.x), nem direkt</td><td class="accent">All</td></tr>
+        <tr class="fragment"><td><strong>002</strong></td><td>Centralizált error handling (@RestControllerAdvice)</td><td class="ok">1</td></tr>
+        <tr class="fragment"><td><strong>003</strong></td><td>Per-field date mapping (LocalDate vs LocalDateTime)</td><td class="accent">2</td></tr>
+        <tr class="fragment"><td><strong>004</strong></td><td>Springfox → SpringDoc, clean dependency swap</td><td class="accent">2</td></tr>
+        <tr class="fragment"><td><strong>005</strong></td><td>Git branch per phase (rollback = branch revert)</td><td class="accent">All</td></tr>
+        <tr class="fragment"><td><strong>006</strong></td><td>Explicit Jackson config a response parity-hez</td><td class="accent">2</td></tr>
+        <tr class="fragment"><td><strong>007</strong></td><td>Layered architecture megőrzése</td><td class="accent">All</td></tr>
+        <tr class="fragment"><td><strong>008</strong></td><td>Paketo buildpacks, nem manuális Dockerfile</td><td class="purple">3</td></tr>
+    </table>
+    <p class="fragment small" style="margin-top: 0.8em;">
+        Minden döntés <span class="accent">indokolva</span> és <span class="accent">visszakövethető</span>.
+    </p>
+    <aside class="notes">
+        Lassan minden ADR. Magyarázd: "Az ADR-001 a fázisos megközelítést rögzíti — miért nem direkt ugrás. Az ADR-008 a Paketo döntést — miért nem Dockerfile. Minden ADR-ben benne van: kontextus, döntés, indoklás, következmény. Egy év múlva valaki megnyitja és érti."
+    </aside>
+</section>
+
+<section>
+    <h2>Fázisos migráció — Phase Gate-ekkel</h2>
+    <div style="margin-top: 1em;">
+        <div class="phase-box phase1">
+            <h4 class="ok" style="margin: 0 0 0.3em 0;">Phase 1 · Spring Boot 1.5 → 2.7</h4>
+            <p style="margin: 0; font-size: 0.85em;">findOne() removal · context-path rename · JUnit 4→5 · Error handling centralizáció</p>
+            <p class="ok small" style="margin: 0.3em 0 0 0;">🚪 Gate: green build + response spot-check</p>
+        </div>
+        <div class="phase-box phase2 fragment">
+            <h4 class="accent" style="margin: 0 0 0.3em 0;">Phase 2 · Spring Boot 2.7 → 3.x</h4>
+            <p style="margin: 0; font-size: 0.85em;">javax → jakarta · java.time migráció · SpringDoc · Lambdák, streams</p>
+            <p class="accent small" style="margin: 0.3em 0 0 0;">🚪 Gate: green build + full response parity + namespace grep</p>
+        </div>
+        <div class="phase-box phase3 fragment">
+            <h4 class="purple" style="margin: 0 0 0.3em 0;">Phase 3 · Containerization</h4>
+            <p style="margin: 0; font-size: 0.85em;">WAR → JAR · Paketo buildpack · Devcontainer Java 25</p>
+            <p class="purple small" style="margin: 0.3em 0 0 0;">🚪 Gate: container response parity = JAR response parity</p>
+        </div>
+    </div>
+    <p class="fragment small" style="margin-top: 1em;">
+        <strong>Miért nem egyetlen ugrás?</strong><br>
+        Ha 5 breaking change egyszerre csap le → <span class="warn">nem tudod, melyik tört el</span>.<br>
+        <strong class="accent">Izoláció · Validáció · Rollback</strong>
+    </p>
+    <aside class="notes">
+        Minden fázis külön fragment. Magyarázd: "Phase 1: csak a framework API változások. Phase 2: csak a namespace és modernizáció. Phase 3: csak a packaging. Mindegyik végén GATE — nem mész tovább, amíg nem zöld. Rollback: branch revert, main érintetlen."
     </aside>
 </section>
 
 <section data-background-color="#1a0000">
-    <h2 class="warn">A javax.crypto csapda</h2>
-    <div class="two-col" style="font-size:0.75em;">
+    <h2 class="warn">⚠️ A javax.crypto csapda</h2>
+    <p class="dim small">Emlékeztek a szerdai SSL eseményre az elején? Ez az.</p>
+    <div class="two-col" style="margin-top: 1em;">
         <div>
-            <h3 class="warn">Naiv megközelítés</h3>
-            <pre><code class="language-bash">sed -i 's/javax/jakarta/g' *.java</code></pre>
-            <p class="warn">javax.crypto → jakarta.crypto</p>
-            <p class="warn">javax.net.ssl → jakarta.net.ssl</p>
-            <p class="fragment warn"><strong>BROKEN CRYPTO. BROKEN TLS.</strong></p>
+            <h4 class="warn">❌ A naiv megközelítés</h4>
+            <pre><code class="language-bash">$ sed -i 's/javax/jakarta/g' \
+       src/main/java/**/*.java</code></pre>
+            <p class="warn small" style="margin-top: 0.5em;">
+                javax.persistence → jakarta.persistence ✓<br>
+                javax.validation → jakarta.validation ✓<br>
+                javax.crypto → <strong>jakarta.crypto ❌</strong><br>
+                javax.net.ssl → <strong>jakarta.net.ssl ❌</strong>
+            </p>
+            <p class="fragment warn" style="margin-top: 0.5em;">
+                <strong>Kriptográfia eltört. TLS eltört.</strong><br>
+                Production deploy → security incident.
+            </p>
         </div>
         <div>
-            <h3 class="ok">BMAD megközelítés</h3>
-            <p>PRD FR6 explicit kimondja:</p>
-            <p class="ok">"JDK-owned packages<br>(javax.crypto, javax.net.ssl)<br>must NEVER be renamed"</p>
-            <p class="fragment ok"><strong>Tervezési fázisban felderítve.<br>Nem production-ben.</strong></p>
+            <h4 class="ok">✅ A BMAD megközelítés</h4>
+            <p class="small">PRD FR6 explicit kimondja:</p>
+            <pre style="font-size: 0.45em;"><code class="language-text">FR6: Migrate javax.* to jakarta.*
+     EXCEPT JDK-owned packages
+     (javax.crypto, javax.net.ssl,
+      javax.security.*) — NEVER rename</code></pre>
+            <p class="ok small" style="margin-top: 0.5em;">
+                A <strong>Pre-mortem Analysis</strong> derítette ki<br>
+                a tervezési fázisban.
+            </p>
+            <p class="fragment ok" style="margin-top: 0.5em;">
+                <strong>Felderítve a tervezésnél.</strong><br>
+                Nem production-ben.
+            </p>
         </div>
     </div>
     <aside class="notes">
-        "EZ a BMAD lényege. A Pre-mortem Analysis-ben derült ki. Ki csinált volna find-and-replace-t? Legyetek őszinték."
+        FONTOS: Itt jön a "wow moment". Lassan vezesd be: "Emlékeztek? A szerdai napon a sed csere — itt van miért volt baj. A javax.crypto JDK-tulajdonú, nem kell migrálni. Egy egyszerű sed cseréli — és tönkremegy a kriptó. Ki csinált volna sed cserét? Legyetek őszinték. A BMAD-ban ez a Pre-mortem Analysis-ben derült ki, MIELŐTT egy sort módosítottunk volna."
     </aside>
 </section>
 
 <section>
-    <h2><span class="show-badge">SHOW</span> Architecture döntések</h2>
-    <div class="left" style="font-size:0.75em;">
-        <p class="accent">8 Architecture Decision Record:</p>
-        <table>
-            <tr><th>ADR</th><th>Döntés</th><th>Phase</th></tr>
-            <tr><td>001</td><td>Fázisos migráció (1.5→2.7→3.x)</td><td>All</td></tr>
-            <tr><td>002</td><td>@RestControllerAdvice error handling</td><td>1</td></tr>
-            <tr><td>003</td><td>Date/time mapping fájlonként</td><td>2</td></tr>
-            <tr><td>005</td><td>Git branch per phase rollback</td><td>All</td></tr>
-            <tr><td>007</td><td>Layered architecture megőrzése</td><td>All</td></tr>
-            <tr><td>008</td><td>Paketo buildpacks</td><td>3</td></tr>
-        </table>
+    <h2>5. fázis: Epics & Stories</h2>
+    <div class="four-col" style="margin-top: 1em;">
+        <div class="concept-card phase1">
+            <h4 class="ok">Epic 1</h4>
+            <p style="font-size: 0.95em;">Spring Boot 2.7 Migration</p>
+            <p class="dim xsmall">6 story · 12 FR</p>
+        </div>
+        <div class="concept-card phase2">
+            <h4 class="accent">Epic 2</h4>
+            <p style="font-size: 0.95em;">Boot 3.x + Modernization</p>
+            <p class="dim xsmall">6 story · 8 FR</p>
+        </div>
+        <div class="concept-card phase3">
+            <h4 class="purple">Epic 3</h4>
+            <p style="font-size: 0.95em;">Containerization</p>
+            <p class="dim xsmall">3 story · 2 FR</p>
+        </div>
+        <div class="concept-card">
+            <h4 class="dim">Epic 4</h4>
+            <p style="font-size: 0.95em;">Presentation & Demo</p>
+            <p class="dim xsmall">6 story · 13 FR</p>
+        </div>
     </div>
-    <p class="fragment small"><br>+ pom.xml changes per phase, application.properties per phase,<br>testing strategy, namespace verification command</p>
+    <p class="small" style="margin-top: 1em;">
+        Minden story <strong>acceptance criteria</strong>-val (Given/When/Then), fájl referenciákkal.
+    </p>
+    <p class="fragment small dim">
+        A Phase Assignment a PRD-ben + ADR-ek = <span class="accent">epic-ek és sorrend automatikusan következik</span>.
+    </p>
     <aside class="notes">
-        SHOW: Nyisd meg az architecture.md-t, mutasd az ADR táblát. "Minden döntés explicit, indokolt. Az ADR-001-ben benne van, MIÉRT fázisos — nem azért, mert túl bonyolult volt egyben, hanem mert a demo narratíváját szolgálja. Egy 14 fájlos projekten direkt ugrás is működne."
+        "21 story összesen. Mindegyik specifikus annyira, hogy egy ismeretlen fejlesztő végre tudná hajtani. Nem 'migrate the app' — hanem 'replace findOne with findById in BookService.java line 24, verify with BookServiceTest'. A sorrend nem véletlen — az ADR-001 fázisos döntés alapján következik."
     </aside>
 </section>
 
-<section>
-    <h2>Fázisos migráció — ADR-001</h2>
-    <div class="three-col">
-        <div>
-            <div class="phase-box" style="border-left-color: var(--bmad-ok);">
-                <strong>Phase 1</strong><br>Boot 1.5 → 2.7<br>
-                <span class="xsmall">findOne removal<br>JUnit 4→5<br>Error handling<br>Config changes</span>
-            </div>
+<section data-background-color="#0a1628">
+    <h2>Traceability — minden visszakövethető</h2>
+    <p class="small dim">Egy konkrét story-ból visszafelé az eredeti vízióig:</p>
+    <div style="margin-top: 1em;">
+        <div class="chain-item fragment">
+            <span class="chain-label">Story 2.2:</span> "javax→jakarta namespace migration in Book.java"
         </div>
-        <div>
-            <div class="phase-box" style="border-left-color: var(--bmad-accent);">
-                <strong>Phase 2</strong><br>Boot 2.7 → 3.x<br>
-                <span class="xsmall">javax→jakarta<br>java.time<br>SpringDoc<br>Lambdas, streams</span>
-            </div>
+        <div class="chain-arrow fragment">↑</div>
+        <div class="chain-item fragment">
+            <span class="chain-label">Epic 2:</span> "Spring Boot 3.x Migration & Code Modernization"
         </div>
-        <div>
-            <div class="phase-box" style="border-left-color: var(--bmad-purple);">
-                <strong>Phase 3</strong><br>Containerize<br>
-                <span class="xsmall">WAR→JAR<br>Paketo buildpack</span>
-            </div>
+        <div class="chain-arrow fragment">↑</div>
+        <div class="chain-item fragment">
+            <span class="chain-label">ADR-001:</span> "Phased migration, namespace = Phase 2"
+        </div>
+        <div class="chain-arrow fragment">↑</div>
+        <div class="chain-item fragment">
+            <span class="chain-label">PRD FR6:</span> "Migrate all javax.* to jakarta.* (except JDK-owned)"
+        </div>
+        <div class="chain-arrow fragment">↑</div>
+        <div class="chain-item fragment">
+            <span class="chain-label">Brief:</span> "Java 8 EOL November 2026 → mandatory modernization"
         </div>
     </div>
-    <p class="fragment"><br><span class="ok">Phase gate:</span> minden fázis végén green build + response parity</p>
-    <p class="fragment"><span class="ok">Rollback:</span> branch revert — main érintetlen</p>
+    <p class="fragment small" style="margin-top: 1em;">
+        Egy ChatGPT prompt bármelyik dokumentumot generálná. <br>
+        A <span class="accent">láncot</span> — a koherenciát közöttük — <strong>nem</strong>.
+    </p>
     <aside class="notes">
-        "Ha 5 breaking change egyszerre csap le, honnan tudod melyik törte el? A fázisolás izolál. Minden fázis végén gate."
+        Lassan építsd a láncot fentről lefelé. Mondd: "Egy konkrét kódváltozás visszavezethető az eredeti vízióig. Ez nem dokumentum-csomag — ez egy döntési láncolat. Ha valaki megkérdezi 6 hónap múlva: 'miért írtad át ezt?' — végig tudod vezetni."
     </aside>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════════════
+     PART 5: LIVE RESULTS (42-52 min)
+     ═══════════════════════════════════════════════════════════════════ -->
+
 <section>
-    <h2>Traceability — a BMAD lényege</h2>
-    <div class="left" style="font-size:0.85em;">
-        <p class="fragment">Story 2.2: <span class="dim">"javax→jakarta migration"</span></p>
-        <p class="fragment">&nbsp;&nbsp;↑ Epic 2: <span class="dim">"Spring Boot 3.x Migration"</span></p>
-        <p class="fragment">&nbsp;&nbsp;↑ ADR-001: <span class="dim">"Namespace is Phase 2"</span></p>
-        <p class="fragment">&nbsp;&nbsp;↑ PRD FR6: <span class="dim">"Migrate all javax.* to jakarta.*"</span></p>
-        <p class="fragment">&nbsp;&nbsp;↑ Brief: <span class="dim">"Java 8 EOL → mandatory modernization"</span></p>
+    <h2><span class="live-badge">LIVE</span> Before vs After — Side by Side</h2>
+    <div class="demo-instruction">
+        <h4>🎬 DEMÓ LÉPÉSEK</h4>
+        <p><strong>1.</strong> Nyiss <strong>2 böngésző tab-ot</strong> egymás mellett:</p>
+        <p style="margin-left: 1.5em;">
+            • Tab A: <code class="warn">localhost:8081/library/swagger-ui.html</code> <em>(Java 8)</em><br>
+            • Tab B: <code class="ok">localhost:8082/library/swagger-ui/index.html</code> <em>(Java 25)</em>
+        </p>
+        <p><strong>2.</strong> Mutasd a <strong>Swagger UI title</strong> különbséget:</p>
+        <p style="margin-left: 1.5em;">
+            • A: "Library API"<br>
+            • B: "Library API v2 — Java 25 / Spring Boot 3.x"
+        </p>
+        <p><strong>3.</strong> Mindkettőn: <code>GET /api/books</code> → Try it out → Execute</p>
+        <p><strong>4.</strong> Hasonlítsd a JSON response-okat:</p>
+        <p style="margin-left: 1.5em;">
+            • <code>publishedDate</code>: azonos<br>
+            • <code>createdAt</code>: <strong>azonos formátum</strong> (Jackson config!)
+        </p>
     </div>
-    <p class="fragment"><br>Egy ChatGPT prompt bármelyik dokumentumot generálja.<br>A <span class="accent">cross-document koherenciát</span> nem tartja.</p>
+    <p class="dim small">Response parity ✓ — a végpontok behavior-e azonos.</p>
     <aside class="notes">
-        "Ez a traceability chain. Egy story-ból visszafelé eljutok a briefig. Ez a BMAD különbsége — nem dokumentumokat generál, döntési láncolatot épít."
-    </aside>
-</section>
-
-<!-- ==================== PART 4: LIVE RESULTS (30-45 min) ==================== -->
-
-<section>
-    <h2><span class="live-badge">LIVE</span> Az eredeti alkalmazás</h2>
-    <pre><code class="language-plaintext">localhost:8081/library/swagger-ui.html
-
-→ GET /api/books         (5 könyv, java.util.Date formátum)
-→ POST /api/loans/borrow (kölcsönzés)
-→ H2 Console             (adatbázis)</code></pre>
-    <p class="small dim">Java 8 / Spring Boot 1.5 / javax.* / WAR</p>
-    <aside class="notes">
-        LIVE: Nyisd meg a Swagger UI-t 8081-en. Hívd a GET /api/books-t. Mutasd a createdAt dátum formátumot. "Ez az alkalmazás, amit migráltunk. Most nézzük az eredményt."
-    </aside>
-</section>
-
-<section>
-    <h2><span class="live-badge">LIVE</span> Before vs After</h2>
-    <div class="two-col">
-        <div style="text-align:center;">
-            <h3 class="warn">Original — Java 8</h3>
-            <p>localhost:<strong>8081</strong></p>
-            <p class="xsmall">/swagger-ui<strong>.html</strong></p>
-            <p class="xsmall dim">Spring Boot 1.5 / javax.*</p>
-        </div>
-        <div style="text-align:center;">
-            <h3 class="ok">Migrated — Java 25</h3>
-            <p>localhost:<strong>8082</strong></p>
-            <p class="xsmall">/swagger-ui/<strong>index.html</strong></p>
-            <p class="xsmall dim">Spring Boot 3.x / jakarta.*</p>
-        </div>
-    </div>
-    <p class="fragment small"><br>Hívjuk a <span class="accent">GET /api/books</span>-t mindkettőn — azonos JSON response!</p>
-    <aside class="notes">
-        LIVE: Mindkét tab nyitva egymás mellett. Hívd a GET /api/books-t mindkettőn. "A Swagger UI title más — 'Library API' vs 'Library API v2'. De a JSON response azonos. Ez a response parity, amit a Phase Gate-ek garantálnak."
+        FONTOS: A két app előzetesen indulva legyen. Két terminál: 1. `sdk use java 8.0.482-tem && git checkout b93e61e && mvn spring-boot:run` (8081). 2. Új terminál: `sdk use java 25.0.2-tem && git checkout main && mvn spring-boot:run -Dserver.port=8082` (8082). Hagyj 1 percet az indulásra. A demóhoz windows splitscreen-t használj.
     </aside>
 </section>
 
@@ -466,40 +784,65 @@ Java 8 / Spring Boot 1.5.22 / WAR / Tomcat
     <h2>A kód diff — tiszta, fázisonkénti</h2>
     <div class="two-col">
         <div>
-            <h3 class="warn" style="font-size:0.9em;">Before</h3>
+            <h4 class="warn">Before (Java 8)</h4>
             <pre><code class="language-java">import javax.persistence.*;
+import java.util.Date;
 
-@Temporal(TemporalType.DATE)
-private Date publishedDate;
-private Date createdAt;
+@Entity
+public class Book {
+    @Temporal(TemporalType.DATE)
+    private Date publishedDate;
 
-new Comparator&lt;Book&gt;() {
-  public int compare(Book b1, Book b2) {
-    return b1.getAuthor()
-      .compareTo(b2.getAuthor());
-  }
+    private Date createdAt;
+
+    public List&lt;Book&gt; getBooksSortedByAuthor() {
+        return books.stream()
+            .sorted(new Comparator&lt;Book&gt;() {
+                public int compare(Book a, Book b) {
+                    return a.getAuthor()
+                        .compareTo(b.getAuthor());
+                }
+            })
+            .collect(toList());
+    }
 }</code></pre>
         </div>
         <div>
-            <h3 class="ok" style="font-size:0.9em;">After</h3>
+            <h4 class="ok">After (Java 25)</h4>
             <pre><code class="language-java">import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-private LocalDate publishedDate;
-@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-private LocalDateTime createdAt;
+@Entity
+public class Book {
+    private LocalDate publishedDate;
 
-Comparator.comparing(Book::getAuthor)</code></pre>
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdAt;
+
+    public List&lt;Book&gt; getBooksSortedByAuthor() {
+        return books.stream()
+            .sorted(comparing(Book::getAuthor))
+            .toList();
+    }
+}</code></pre>
         </div>
     </div>
-    <p class="fragment small dim">Nincs 500 soros "migration commit" — minden commit egy BMAD story.</p>
+    <p class="small dim" style="margin-top: 0.8em;">
+        Nincs 500 soros "migration commit" — minden commit <span class="accent">egy BMAD story végrehajtása</span>.
+    </p>
     <aside class="notes">
-        "A diff tiszta, mert a BMAD fázisonként izolálta. A javax→jakarta külön commit a java.time-tól."
+        "Ez egy konkrét fájl: Book.java. Ha a két oszlopot nézitek: javax→jakarta, Date→LocalDate, anonymous Comparator→method reference. Mindegyik VÁLTOZÁS külön commit, külön fázisban. A diff tiszta — egy code review-er pontosan tudja, mi miért történt."
     </aside>
 </section>
 
 <section>
-    <h2><span class="show-badge">SHOW</span> Git log = Story</h2>
-    <pre><code class="language-plaintext" style="font-size:0.85em;">50572ab [Phase 4] docs: Reveal.js presentation, cheat sheet, README
+    <h2><span class="show-badge">SHOW</span> Git log = Migration story</h2>
+    <div class="demo-instruction">
+        <h4>📺 MIT MUTASS</h4>
+        <p><strong>Terminálban:</strong> <code>git log --oneline</code></p>
+    </div>
+    <pre><code class="language-plaintext" style="font-size: 0.6em;">50572ab [Phase 4] docs: Reveal.js presentation, cheat sheet, README
 d7b17f0 Merge phase-3: Paketo + Java 25 devcontainer
 3303005 [Phase 3] migrate: Paketo buildpack config
 06e89d4 [Phase 3] migrate: WAR → JAR
@@ -511,168 +854,208 @@ c6c75f7 Merge phase-1: Boot 2.7.18
 59e5982 [Phase 1] refactor: centralize error handling
 1f75204 [Phase 1] migrate: Boot 2.7 + JUnit 5
 b93e61e Initial commit: Java 8 / Boot 1.5</code></pre>
-    <p class="fragment small">Commit convention: <code class="accent">[Phase X] type: description</code> — az Architecture doc definiálta.</p>
+    <p class="small fragment" style="margin-top: 0.8em;">
+        A commit convention <code>[Phase X] type: description</code> az <span class="accent">Architecture doc-ban lett definiálva</span>.<br>
+        <span class="dim">Nem véletlen — a BMAD kikényszerítette.</span>
+    </p>
     <aside class="notes">
-        SHOW: Futtasd a git log --oneline parancsot a terminálban. "A git log MAGA a migrációs történet. Minden commit egy BMAD story végrehajtása. A convention az architecture doc-ban lett definiálva."
+        Terminálban futtasd: `git log --oneline`. Görgesd. Mondd: "Ez nem véletlenül néz ki így. A git log MAGA a migrációs történet. Minden commit egy story végrehajtása. A convention az architecture.md-ben van rögzítve."
     </aside>
 </section>
 
 <section>
-    <h2><span class="live-badge">LIVE</span> Paketo Container</h2>
-    <pre><code class="language-bash">$ mvn spring-boot:build-image -DskipTests
-
-# Paketo auto-detects Spring Boot
-# BellSoft Liberica JRE 25
-# Layered OCI image — zero Dockerfile
+    <h2><span class="live-badge">LIVE</span> Paketo container</h2>
+    <div class="demo-instruction">
+        <h4>🎬 DEMÓ LÉPÉSEK</h4>
+        <p><strong>1.</strong> Mutasd a futó konténert: <code>docker ps | grep library-api</code></p>
+        <p><strong>2.</strong> <em>Opcionális, ha van idő:</em> élő build:<br>
+        <code style="margin-left: 1em;">mvn spring-boot:build-image -DskipTests</code><br>
+        <em style="margin-left: 1em;">→ ~2-3 perc, közben magyarázd a Paketo előnyeit</em></p>
+        <p><strong>3.</strong> Mutasd a böngészőben: <code>localhost:8082/library/api/books</code></p>
+    </div>
+    <pre style="font-size: 0.55em; margin-top: 1em;"><code class="language-bash">$ mvn spring-boot:build-image -DskipTests
+# → Paketo auto-detects Spring Boot
+# → BellSoft Liberica JRE 25 (automatikusan)
+# → Layered OCI image (cache-elhető rétegek)
+# → Zero Dockerfile
 
 $ docker run -p 8082:8081 library-api:1.0.0
 $ curl localhost:8082/library/api/books</code></pre>
-    <p class="fragment small ok">Egy parancs. Nincs Dockerfile. Production-ready container.</p>
     <aside class="notes">
-        LIVE: Mutasd a futó konténert (docker ps) vagy a Paketo build outputot (ha van idő). "Egy parancs. Nincs Dockerfile. Paketo mindent elintéz — JVM tuning, layer caching, security patching."
+        Ha előzetesen build-elted az image-et, csak `docker ps`-szel mutasd. Ha van idő (és a build gyorsan megy a cache miatt), élőben futtasd. Magyarázd: "Egy parancs. Nincs Dockerfile. Paketo mindent elintéz: JVM választás, layer caching, security patching."
     </aside>
 </section>
 
-<!-- ==================== PART 5: BMAD BEYOND MIGRATION (45-52 min) ==================== -->
+<!-- ═══════════════════════════════════════════════════════════════════
+     PART 6: BMAD BEYOND MIGRATION (52-57 min)
+     ═══════════════════════════════════════════════════════════════════ -->
 
 <section data-background-color="#0a1628">
     <h2>BMAD a migráción túl</h2>
-    <div class="three-col">
-        <div>
-            <p class="accent" style="font-size:0.9em;"><strong>BMM Sprint flow</strong></p>
-            <p class="xsmall"><code>/bmad-sprint-planning</code><br>Sprint terv az epics-ből</p>
-            <p class="xsmall"><code>/bmad-create-story</code><br>Kontextussal feltöltött story</p>
-            <p class="xsmall"><code>/bmad-dev-story</code><br>Story implementáció</p>
-            <p class="xsmall"><code>/bmad-sprint-status</code><br>Valós idejű állapot + risks</p>
-            <p class="xsmall"><code>/bmad-retrospective</code><br>Epic utáni retro</p>
-            <p class="xsmall"><code>/bmad-correct-course</code><br>Sprint közbeni pivot</p>
+    <p class="small dim">A migráció csak egyetlen use case. A BMAD bármilyen szoftverprojektre.</p>
+    <div class="three-col" style="margin-top: 1em;">
+        <div class="concept-card bmm">
+            <h4 class="accent">📋 BMM Sprint Flow</h4>
+            <p class="xsmall">Ha már megvannak a story-k:</p>
+            <p class="xsmall"><code>/bmad-sprint-planning</code> sprint terv</p>
+            <p class="xsmall"><code>/bmad-create-story</code> story részletek</p>
+            <p class="xsmall"><code>/bmad-dev-story</code> implementáció</p>
+            <p class="xsmall"><code>/bmad-sprint-status</code> állapot + risks</p>
+            <p class="xsmall"><code>/bmad-retrospective</code> epic után retro</p>
+            <p class="xsmall"><code>/bmad-correct-course</code> sprint pivot</p>
         </div>
-        <div>
-            <p class="ok" style="font-size:0.9em;"><strong>TEA Test Architecture</strong></p>
-            <p class="xsmall"><code>/bmad-testarch-framework</code><br>Playwright/Cypress setup</p>
-            <p class="xsmall"><code>/bmad-testarch-atdd</code><br>Acceptance test scaffold</p>
-            <p class="xsmall"><code>/bmad-testarch-test-design</code><br>System-level test plan</p>
-            <p class="xsmall"><code>/bmad-testarch-nfr</code><br>Performance, security, reliability</p>
-            <p class="xsmall"><code>/bmad-testarch-ci</code><br>CI/CD quality pipeline</p>
-            <p class="xsmall"><code>/bmad-testarch-trace</code><br>Traceability matrix</p>
+        <div class="concept-card tea">
+            <h4 class="ok">🧪 TEA Test Architecture</h4>
+            <p class="xsmall">Tesztelési stratégia:</p>
+            <p class="xsmall"><code>/bmad-testarch-framework</code> setup</p>
+            <p class="xsmall"><code>/bmad-testarch-atdd</code> red-phase tests</p>
+            <p class="xsmall"><code>/bmad-testarch-test-design</code> terv</p>
+            <p class="xsmall"><code>/bmad-testarch-nfr</code> NFR mérés</p>
+            <p class="xsmall"><code>/bmad-testarch-ci</code> CI pipeline</p>
+            <p class="xsmall"><code>/bmad-testarch-trace</code> traceability</p>
         </div>
-        <div>
-            <p class="orange" style="font-size:0.9em;"><strong>WDS — 8 lépéses UX</strong></p>
+        <div class="concept-card wds">
+            <h4 class="orange">🎨 WDS — UX 8 lépésben</h4>
+            <p class="xsmall">Greenfield UX projekt:</p>
             <p class="xsmall"><code>/wds-1-project-brief</code></p>
             <p class="xsmall"><code>/wds-2-trigger-mapping</code></p>
             <p class="xsmall"><code>/wds-3-scenarios</code></p>
             <p class="xsmall"><code>/wds-4-ux-design</code></p>
             <p class="xsmall"><code>/wds-5-agentic-development</code></p>
-            <p class="xsmall"><code>/wds-6-asset-generation</code></p>
             <p class="xsmall"><code>/wds-7-design-system</code></p>
-            <p class="xsmall"><code>/wds-8-product-evolution</code></p>
         </div>
     </div>
-    <p class="fragment small"><br>A migráció <span class="accent">egyetlen use case</span>. A BMAD bármilyen szoftverprojektre használható.</p>
     <aside class="notes">
-        "A migráció csak a jéghegy csúcsa. A BMM sprint management-et és code review-t támogat. A TEA teljes test architecture-t épít — ATDD scaffold, NFR assessment, traceability matrix, CI pipeline. A WDS pedig egy 8 lépéses UX folyamat: brief → trigger mapping → scenarios → UX design → agentic dev → asset generation → design system → product evolution. Mindegyik ugyanazzal a strukturált megközelítéssel."
+        "A migráció csak a jéghegy csúcsa. A BMM sprint management-et és code review-t támogat. A TEA teljes test architecture-t. A WDS pedig egy 8 lépéses UX folyamat. Mind ugyanazzal a strukturált gondolkodással."
     </aside>
 </section>
 
-<section>
-    <h2>Core: Bármelyik fázisban használható</h2>
-    <div class="three-col" style="font-size:0.8em;">
-        <div>
-            <p class="accent"><strong>Mélyítés</strong></p>
-            <p class="xsmall"><code>/bmad-advanced-elicitation</code><br>50+ módszer (Pre-mortem,<br>Shark Tank, First Principles...)</p>
-            <p class="xsmall"><code>/bmad-party-mode</code><br>Multi-agent megbeszélés</p>
-            <p class="xsmall"><code>/bmad-brainstorming</code><br>Strukturált ötletelés</p>
+<section data-background-color="#0a1628">
+    <h2>Core: minden fázisban hasznos</h2>
+    <div class="three-col" style="margin-top: 1em;">
+        <div class="concept-card">
+            <h4 class="accent">🔍 Mélyítés</h4>
+            <p class="xsmall"><code>/bmad-advanced-elicitation</code><br><em>50+ módszer (Pre-mortem, Shark Tank, Red Team...)</em></p>
+            <p class="xsmall"><code>/bmad-party-mode</code><br><em>Több agent együtt vitázik</em></p>
+            <p class="xsmall"><code>/bmad-brainstorming</code><br><em>Strukturált ötletelés</em></p>
         </div>
-        <div>
-            <p class="warn"><strong>Review</strong></p>
-            <p class="xsmall"><code>/bmad-review-adversarial</code><br>Cinikus review</p>
-            <p class="xsmall"><code>/bmad-review-edge-case</code><br>Edge case hunting</p>
-            <p class="xsmall"><code>/bmad-editorial-review</code><br>Prose / structure review</p>
+        <div class="concept-card">
+            <h4 class="warn">🎯 Review</h4>
+            <p class="xsmall"><code>/bmad-review-adversarial</code><br><em>Cinikus review</em></p>
+            <p class="xsmall"><code>/bmad-review-edge-case</code><br><em>Edge case vadászat</em></p>
+            <p class="xsmall"><code>/bmad-code-review</code><br><em>Multi-perspective code review</em></p>
         </div>
-        <div>
-            <p class="purple"><strong>Dokumentum</strong></p>
-            <p class="xsmall"><code>/bmad-distillator</code><br>LLM-optimalizált tömörítés</p>
-            <p class="xsmall"><code>/bmad-shard-doc</code><br>Nagy doksik felbontása</p>
-            <p class="xsmall"><code>/bmad-index-docs</code><br>Index generálás</p>
+        <div class="concept-card">
+            <h4 class="purple">📄 Dokumentum</h4>
+            <p class="xsmall"><code>/bmad-distillator</code><br><em>LLM-optimalizált tömörítés</em></p>
+            <p class="xsmall"><code>/bmad-shard-doc</code><br><em>Nagy doksik felbontása</em></p>
+            <p class="xsmall"><code>/bmad-help</code><br><em>"Most mit csináljak?"</em></p>
         </div>
     </div>
-    <p class="fragment small"><br>Ezek <span class="accent">orthogonálisak</span> a workflow-hoz — bármikor használhatók.</p>
+    <p class="fragment small" style="margin-top: 1em;">
+        Ezek <strong>orthogonálisak</strong> a workflow-hoz — bármikor használhatók.
+    </p>
     <aside class="notes">
-        "A Core modul tartalmazza azokat az általános funkciókat, amik minden fázisban hasznosak. Az Advanced Elicitation 50+ módszerével (pre-mortem, Shark Tank, Red Team, First Principles) bármelyik döntést mélyítheted. A Party Mode-ban több agent vitázik. A review-k adversarial vagy edge case szempontból néznek rá a kódra/dokumentumra. A distillator pedig a token-hatékony kontextus átadáshoz kell."
+        "A Core modul az, amit MINDIG használhatsz. Bármelyik fázisban kérheted az elicitation-t a mélyítéshez, a review-t kritikához, a distillator-t kontextus-tömörítéshez. Ezek nem kötődnek workflow-hoz."
     </aside>
 </section>
 
 <section data-background-color="#1a1428">
-    <h2>BMB: Saját modulok és agentek</h2>
+    <h2>BMB: saját modulok és agentek</h2>
     <p class="dim small">A BMAD meta-szintje — építsd a saját workflow-d</p>
-    <div class="left" style="font-size:0.85em; margin-top:1em;">
-        <p><code class="purple">/bmad-agent-builder</code> — Saját agent építése<br>
-        <span class="xsmall dim">Pl. egy "DevOps Engineer" agent a saját pipeline-odhoz</span></p>
-        <p class="fragment"><code class="purple">/bmad-workflow-builder</code> — Saját workflow<br>
-        <span class="xsmall dim">Pl. egy "Code Migration" workflow más nyelvekre</span></p>
-        <p class="fragment"><code class="purple">/bmad-module-builder</code> — Komplett modul<br>
-        <span class="xsmall dim">Pl. saját "FinOps" modul a cég cost-management-jéhez</span></p>
-        <p class="fragment"><code class="purple">/bmad-customize</code> — Meglévő agent override-ja<br>
-        <span class="xsmall dim">A céges szabályok ráhúzása a built-in agentekre</span></p>
+    <div class="left" style="font-size: 0.85em; margin-top: 1.5em;">
+        <p class="fragment">
+            <code class="purple">/bmad-agent-builder</code> — <strong>Saját agent</strong><br>
+            <span class="dim xsmall">pl. "DevOps Engineer" agent a saját pipeline-odhoz</span>
+        </p>
+        <p class="fragment">
+            <code class="purple">/bmad-workflow-builder</code> — <strong>Saját workflow</strong><br>
+            <span class="dim xsmall">pl. ".NET Migration" workflow .NET 6 → 8 átálláshoz</span>
+        </p>
+        <p class="fragment">
+            <code class="purple">/bmad-module-builder</code> — <strong>Komplett modul</strong><br>
+            <span class="dim xsmall">pl. "FinOps" modul cég cost-management-hez</span>
+        </p>
+        <p class="fragment">
+            <code class="purple">/bmad-customize</code> — <strong>Built-in agent override</strong><br>
+            <span class="dim xsmall">céges szabályok ráhúzása a meglévő agentekre</span>
+        </p>
     </div>
-    <p class="fragment small"><br>A BMAD nem zárt — <span class="accent">testreszabható és bővíthető</span>.</p>
+    <p class="fragment small" style="margin-top: 1em;">
+        A BMAD <span class="accent">nem zárt</span>. Testreszabható. Bővíthető.
+    </p>
     <aside class="notes">
-        "A BMB a BMAD meta-szintje. Nem csak használod a built-in agentekt — sajátot építhetsz. Egy DevOps agent a saját pipeline-odhoz. Egy 'Code Migration' workflow más nyelvekre. Vagy egy komplett FinOps modul a cég cost-management-jéhez. A customize-zal pedig a meglévőket szabhatod a céges szabályaidhoz. Ez nem zárt rendszer."
+        "A BMB a meta-szint. Nem csak HASZNÁLOD a beépítettet — építhetsz saját agentt, workflow-t, sőt modult. Egy 'DevOps Engineer' agent a CI/CD pipeline-odhoz. Egy '.NET Migration' workflow. A customize-zal pedig a céges szabályok ráhúzhatók a built-in agentekre."
     </aside>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════════════
+     PART 7: CLOSE (57-60 min)
+     ═══════════════════════════════════════════════════════════════════ -->
+
 <section>
-    <h2>BMAD nélkül vs BMAD-dal</h2>
-    <table>
-        <tr><th style="width:45%">Nélküle</th><th style="width:45%">Vele</th></tr>
-        <tr><td>"Majd kitaláljuk"</td><td class="ok">Fázisonkénti terv</td></tr>
-        <tr><td>Szétszórt jegyzetek</td><td class="ok">Koherens artifact-ok</td></tr>
-        <tr><td>Find-and-replace</td><td class="ok">javax.crypto felderítve</td></tr>
-        <tr><td>"Miért csináltuk így?"</td><td class="ok">ADR-ek, döntési napló</td></tr>
-        <tr><td>"Mennyi van még?"</td><td class="ok">Sprint status, story-k</td></tr>
-        <tr><td>1 hét debugging</td><td class="ok">Phase gate validáció</td></tr>
-        <tr><td>Elavuló dokumentáció</td><td class="ok">Élő, visszakövethető</td></tr>
+    <h2>BMAD nélkül vs vele</h2>
+    <table class="vs-table" style="margin-top: 1em;">
+        <tr>
+            <th style="width: 50%;">Nélküle</th>
+            <th style="width: 50%;">Vele</th>
+        </tr>
+        <tr><td class="col-bad">"Majd kitaláljuk"</td><td class="col-good">Fázisonkénti terv előre</td></tr>
+        <tr><td class="col-bad">Szétszórt jegyzetek, Jira ticketek</td><td class="col-good">Koherens artifact-csomag</td></tr>
+        <tr><td class="col-bad">sed cserék, javax.crypto eltörik</td><td class="col-good">Pre-mortem felderíti előre</td></tr>
+        <tr><td class="col-bad">"Miért is csináltuk így?"</td><td class="col-good">ADR-ek, döntési napló</td></tr>
+        <tr><td class="col-bad">"Mennyi van még hátra?"</td><td class="col-good">Sprint status, story-k állapota</td></tr>
+        <tr><td class="col-bad">3 nap debug egy hibás merge után</td><td class="col-good">Phase gate elkapja</td></tr>
+        <tr><td class="col-bad">Onboarding: "kérdezz egy senior-t"</td><td class="col-good">Onboarding: "olvasd el az ADR-eket"</td></tr>
     </table>
     <aside class="notes">
-        "Nem a BMAD-dal töltött idő a kérdés — hanem a BMAD NÉLKÜL eltöltött debugging idő."
+        "Nem a BMAD-dal töltött idő a kérdés — hanem a BMAD NÉLKÜL eltöltött debugging és magyarázkodási idő."
     </aside>
 </section>
 
 <section>
-    <h2>Élő dokumentáció</h2>
-    <div class="left" style="font-size:0.85em;">
-        <p><span class="accent">Product Brief</span> → Miért csináltuk <span class="dim">(onboarding)</span></p>
-        <p><span class="accent">PRD</span> → Mit követeltünk meg <span class="dim">(audit trail)</span></p>
-        <p><span class="accent">Architecture</span> → Hogyan döntöttünk <span class="dim">(döntési napló)</span></p>
-        <p><span class="accent">Epics & Stories</span> → Mit hajtottunk végre <span class="dim">(traceability)</span></p>
+    <h2>Élő dokumentáció — bonus</h2>
+    <div class="left" style="font-size: 0.85em; margin-top: 1em;">
+        <p><span class="accent">📝 Product Brief</span> → <em>Miért csináltuk</em> · onboarding</p>
+        <p><span class="accent">📋 PRD</span> → <em>Mit követeltünk meg</em> · audit trail</p>
+        <p><span class="accent">🏗️ Architecture</span> → <em>Hogyan döntöttünk</em> · döntési napló</p>
+        <p><span class="accent">📦 Epics & Stories</span> → <em>Mit hajtottunk végre</em> · traceability</p>
     </div>
-    <p class="fragment"><br>Az új fejlesztő megnyitja az architecture doc-ot<br>és tudja, <strong>MIÉRT</strong> van @JsonFormat a createdAt-on.</p>
+    <p class="fragment" style="margin-top: 1.5em;">
+        Az új fejlesztő megnyitja az architecture.md-t<br>
+        és tudja, <strong>MIÉRT</strong> van <code>@JsonFormat</code> a <code>createdAt</code>-on.
+    </p>
+    <p class="fragment small dim" style="margin-top: 1em;">
+        A BMAD artifactok <strong>a kóddal együtt</strong> készültek — nem utólag.
+    </p>
     <aside class="notes">
-        "A BMAD artifactok nem egyszer használatosak. A kóddal együtt készültek — nem utólag."
+        "Plusz előny, amit nem reklámoznak: a tervezési artifactok élő dokumentációvá válnak. Egy új fejlesztő nem 'kérdezz Rolandot' — hanem 'olvasd el az ADR-t'. Ez különbözteti meg a BMAD output-ot egy AI-generated dokumentumtól."
     </aside>
 </section>
-
-<!-- ==================== PART 6: CLOSE (52-60 min) ==================== -->
 
 <section>
     <h2>Próbáld ki — 30 perc</h2>
-    <div class="left" style="font-size:0.85em;">
-        <p>1. <code>npm install -g @anthropic-ai/claude-code</code></p>
-        <p>2. Telepítsd a BMAD-ot<br>&nbsp;&nbsp;&nbsp;<span class="accent">github.com/bmadcode/BMAD-METHOD</span></p>
-        <p>3. <code class="accent">/bmad-document-project</code></p>
-        <p>4. 30 perc múlva: <code>docs/index.md</code></p>
+    <div class="left" style="margin-top: 1em; font-size: 0.9em;">
+        <p><span class="step-number">1</span> <code>npm install -g @anthropic-ai/claude-code</code></p>
+        <p><span class="step-number">2</span> Telepítsd a BMAD-ot:<br>
+        <span style="margin-left: 2.2em;" class="accent">github.com/bmadcode/BMAD-METHOD</span></p>
+        <p><span class="step-number">3</span> Futtasd: <code class="accent">/bmad-document-project</code></p>
+        <p><span class="step-number">4</span> 30 perc múlva: <code>docs/index.md</code> a saját kódbázisodról</p>
     </div>
-    <p class="fragment"><br>Low-risk experiment.<br>Ha hasznos — folytatod. Ha nem — 30 percet vesztettél.</p>
+    <p class="fragment" style="margin-top: 1.5em;">
+        <strong>Low-risk experiment.</strong><br>
+        Ha hasznos — folytatod. Ha nem — 30 percet vesztettél.
+    </p>
     <aside class="notes">
-        "30 perc. Ennyi. Futtasd a document-project-et a saját kódbázisodon."
+        "30 perc. Ennyi. Vegyél egy kódbázist amit jól ismersz, futtasd a document-project-et, és nézd meg a kimenetet. Ha azt látod, hogy 'igen, ezt jól értette' — folytasd. Ha nem — tudod, hogy ez nem a te use case-ed."
     </aside>
 </section>
 
 <section>
     <h2>BMAD Cheat Sheet</h2>
-    <div class="three-col" style="font-size:0.6em;">
+    <div class="three-col" style="font-size: 0.6em; margin-top: 1em;">
         <div>
-            <p class="accent"><strong>BMM Workflow</strong></p>
+            <h4 class="accent">BMM Workflow</h4>
             <p><code>/bmad-document-project</code></p>
             <p><code>/bmad-product-brief</code></p>
             <p><code>/bmad-create-prd</code></p>
@@ -685,41 +1068,45 @@ $ curl localhost:8082/library/api/books</code></pre>
             <p><code>/bmad-retrospective</code></p>
         </div>
         <div>
-            <p class="ok"><strong>Core / TEA / WDS</strong></p>
+            <h4 class="ok">Bárhol használd</h4>
+            <p><code>/bmad-help</code> ← bármikor</p>
             <p><code>/bmad-advanced-elicitation</code></p>
             <p><code>/bmad-party-mode</code></p>
             <p><code>/bmad-code-review</code></p>
-            <p><code>/bmad-testarch-framework</code></p>
-            <p><code>/bmad-testarch-atdd</code></p>
-            <p><code>/bmad-testarch-nfr</code></p>
-            <p><code>/wds-1-project-brief</code></p>
-            <p><code>/wds-4-ux-design</code></p>
-            <p><code>/bmad-module-builder</code></p>
-            <p><code>/bmad-help</code> ← bármikor</p>
+            <p><code>/bmad-checkpoint-preview</code></p>
+            <br>
+            <h4 class="orange">Más modulok</h4>
+            <p><code>/bmad-testarch-*</code> (TEA)</p>
+            <p><code>/wds-*</code> (WDS UX)</p>
+            <p><code>/bmad-cis-*</code> (Innovation)</p>
         </div>
         <div>
-            <p class="warn"><strong>Top 5 Migration Pitfall</strong></p>
+            <h4 class="warn">Top 5 Migration Pitfall</h4>
             <p>1. javax.crypto trap</p>
             <p>2. Springfox + Boot 2.6+</p>
             <p>3. data.sql execution order</p>
-            <p>4. Jackson nanosec</p>
+            <p>4. Jackson nanosec on LocalDateTime</p>
             <p>5. Mockito strict stubbing</p>
+            <br>
+            <p class="dim xsmall">Részletek: <code>BMAD-CHEAT-SHEET.md</code> a repóban</p>
         </div>
     </div>
-    <p class="small dim" style="margin-top:0.5em;">Demo repo: github.com/[repo-link]</p>
+    <p class="dim small" style="margin-top: 1em;">Demo repo: <span class="accent">github.com/[repo-link]</span></p>
     <aside class="notes">
-        "Ezt vigyétek haza. A BMAD-CHEAT-SHEET.md is benne van a repóban — ott a teljes lista."
+        "Ezt vigyétek haza. A BMAD-CHEAT-SHEET.md is benne van a repóban — a teljes lista, mind a 6 modulhoz."
     </aside>
 </section>
 
-<section>
-    <h1>Kérdések?</h1>
-    <p><br></p>
-    <p class="dim">Roland Bata</p>
-    <p class="small accent">Demo: github.com/[repo-link]</p>
-    <p class="small accent">BMAD: github.com/bmadcode/BMAD-METHOD</p>
+<section data-background-gradient="linear-gradient(to bottom right, #0a1628, #000)">
+    <h1>Köszönöm!</h1>
+    <p class="accent" style="font-size: 1.3em; margin-top: 1em;">Kérdések?</p>
+    <div style="margin-top: 2em; font-size: 0.8em;">
+        <p class="dim">Roland Bata</p>
+        <p>Demo repo: <span class="accent">github.com/[repo-link]</span></p>
+        <p>BMAD: <span class="accent">github.com/bmadcode/BMAD-METHOD</span></p>
+    </div>
     <aside class="notes">
-        Q&A. Bármi kérdés — BMAD, migráció, javax.crypto, Paketo, sprint management, TEA modul.
+        Q&A. Kérdéseket vársz: BMAD, migráció, javax.crypto, Paketo, sprint management, TEA, WDS, BMB. Ha nincs kérdés, ajánld fel: "Ha valaki saját projekten szeretné kipróbálni, segítek beüzemelni."
     </aside>
 </section>
 
@@ -734,7 +1121,7 @@ $ curl localhost:8082/library/api/books</code></pre>
         hash: true,
         slideNumber: 'c/t',
         plugins: [ RevealHighlight, RevealNotes ],
-        transition: 'slide',
+        transition: 'fade',
         backgroundTransition: 'fade',
         width: 1280,
         height: 720
