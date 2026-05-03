@@ -47,7 +47,9 @@ The `product-brief-library-api-migration-distillate.md` contains dense context f
 
 ## Viewing the Presentation
 
-Open `presentation/index.html` in any browser. No server needed.
+**Online (GitHub Pages):** https://bataroland.github.io/bmad_presentation/presentation/
+
+**Locally:** Open `docs/presentation/index.html` in any browser. No server needed.
 
 - Arrow keys or Space to navigate
 - Press `S` for speaker notes
@@ -128,7 +130,7 @@ bmad_presentation/
 ├── src/test/java/                   # JUnit 5 tests
 ├── _bmad-output/planning-artifacts/ # BMAD artifacts
 ├── docs/                            # Project documentation
-├── presentation/                    # Reveal.js slides
+├── docs/presentation/               # Reveal.js slides (GitHub Pages)
 ├── BMAD-CHEAT-SHEET.md             # Quick reference card
 └── .devcontainer/                   # Java 25 + Docker-in-Docker
 ```

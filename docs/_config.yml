@@ -1,0 +1,4 @@
+# GitHub Pages config — Jekyll theme
+theme: jekyll-theme-cayman
+title: "BMAD Migration Demo"
+description: "Java 8 → Java 25 migration showcasing the BMAD methodology"

@@ -1,6 +1,16 @@
-# Project Documentation Index — Library API
+# Library API — BMAD Migration Demo
+
+> 🎤 **[View the presentation →](./presentation/)**
+>
+> A 60-minute developer talk demonstrating the BMAD methodology
+> through a Java 8 / Spring Boot 1.5 → Java 25 / Spring Boot 3.x migration.
+
+---
+
+## Project Documentation Index
 
 > Generated: 2026-04-06 | Mode: Initial Scan | Scan Level: Quick
+> _(BMAD-generated project scan — see [README](https://github.com/bataroland/bmad_presentation) for the full story)_
 
 ## Project Overview
 
