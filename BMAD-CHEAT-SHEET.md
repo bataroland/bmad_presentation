@@ -5,11 +5,11 @@
 | Modul | Cél | Példa parancsok |
 |-------|-----|-----------------|
 | **Core** | Általános funkciók (review, elicitation, party mode) | `/bmad-advanced-elicitation`, `/bmad-party-mode`, `/bmad-brainstorming` |
-| **BMM** | Business-Manager-Architect-Developer workflow | `/bmad-create-prd`, `/bmad-create-architecture`, `/bmad-dev-story` |
-| **CIS** | Creative & Innovation (brainstorming, design thinking, presentations) | `/bmad-cis-design-thinking`, `/bmad-cis-storytelling` |
-| **WDS** | Web Design System (8-step UX process) | `/wds-1-project-brief` → `/wds-8-product-evolution` |
-| **TEA** | Test Architecture (ATDD, NFR, traceability) | `/bmad-testarch-framework`, `/bmad-testarch-atdd` |
-| **BMB** | Builder (custom agents, workflows, modules) | `/bmad-agent-builder`, `/bmad-module-builder` |
+| **BMM** | BMad Method — agile workflow (PRD, architektúra, sprint, story) | `/bmad-create-prd`, `/bmad-create-architecture`, `/bmad-dev-story` |
+| **CIS** | Creative Intelligence Suite (brainstorming, design thinking, presentations) | `/bmad-cis-design-thinking`, `/bmad-cis-storytelling` |
+| **WDS** | Web Design Studio (8-step UX process) | `/wds-1-project-brief` → `/wds-8-product-evolution` |
+| **TEA** | Test Architecture Enterprise (ATDD, NFR, traceability) | `/bmad-testarch-framework`, `/bmad-testarch-atdd` |
+| **BMB** | BMad Builder (custom agents, workflows, modules) | `/bmad-agent-builder`, `/bmad-module-builder` |
 
 ## BMM Core Workflow
 
@@ -66,7 +66,7 @@
 npm install -g @anthropic-ai/claude-code
 
 # 2. Install BMAD
-# See: github.com/bmadcode/BMAD-METHOD
+# See: github.com/bmad-code-org/BMAD-METHOD
 
 # 3. Run your first scan (30 min)
 /bmad-document-project
@@ -102,4 +102,4 @@ Phase 3 (Containerize): WAR → JAR → Paketo
 ---
 
 Demo repository: `github.com/bataroland/bmad_presentation`
-BMAD Method: `github.com/bmadcode/BMAD-METHOD`
+BMAD Method: `github.com/bmad-code-org/BMAD-METHOD`

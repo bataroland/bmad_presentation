@@ -1,6 +1,6 @@
 # Library API — BMAD Migration Demo
 
-A Java 8 / Spring Boot 1.5 REST API migrated to Java 25 / Spring Boot 3.x using the **BMAD (Business-Manager-Architect-Developer)** methodology.
+A Java 8 / Spring Boot 1.5 REST API migrated to Java 25 / Spring Boot 3.x using the **BMAD** methodology — *Breakthrough Method for Agile AI-Driven Development* (four agent roles: Business · Manager · Architect · Developer).
 
 This repository demonstrates how structured, AI-assisted planning transforms ad-hoc migration into a traceable, predictable process.
 
