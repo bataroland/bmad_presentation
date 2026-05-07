@@ -16,7 +16,7 @@
             --bmad-purple: #b197fc;
             --bmad-orange: #ffa94d;
         }
-        .reveal { font-family: 'Source Sans Pro', sans-serif; font-size: 38px; }
+        .reveal { font-family: 'Source Sans Pro', sans-serif; font-size: 50px; }
         .reveal h1, .reveal h2, .reveal h3, .reveal h4 { text-transform: none; font-weight: 600; margin: 0.3em 0; }
         .reveal h1 { font-size: 2.2em; }
         .reveal h2 { font-size: 1.5em; color: var(--bmad-accent); margin-bottom: 0.5em; }
@@ -758,17 +758,17 @@ Java 8 / Spring Boot 1.5.22 / WAR / Tomcat
         <div class="phase-box phase1">
             <h4 class="ok">Phase 1 · Spring Boot 1.5 → 2.7</h4>
             <p>findOne removal · context-path rename · JUnit 4→5 · Error handling</p>
-            <p class="ok">🚪 Gate: green build + response spot-check</p>
+            <p class="ok">🚪 Tovább csak ha: lefordul, minden teszt zöld, a fő végpontok ugyanazt válaszolják</p>
         </div>
         <div class="phase-box phase2 fragment">
             <h4 class="accent">Phase 2 · Spring Boot 2.7 → 3.x</h4>
             <p>javax → jakarta · java.time · SpringDoc · Lambdák, streams</p>
-            <p class="accent">🚪 Gate: green build + full response parity + namespace grep</p>
+            <p class="accent">🚪 Tovább csak ha: tesztek zöldek, minden végpont 1:1 ugyanazt adja, nincs téves javax-átírás</p>
         </div>
         <div class="phase-box phase3 fragment">
             <h4 class="purple">Phase 3 · Containerization</h4>
             <p>WAR → JAR · Paketo buildpack · Devcontainer Java 25</p>
-            <p class="purple">🚪 Gate: container response = JAR response</p>
+            <p class="purple">🚪 Tovább csak ha: a konténer pontosan ugyanazt válaszolja, mint a sima JAR</p>
         </div>
     </div>
     <p class="fragment xsmall" style="margin-top: 0.5em;">
@@ -1275,7 +1275,9 @@ $ docker run -p 8082:8081 library-api:1.0.0</code></pre>
         backgroundTransition: 'fade',
         width: 1920,
         height: 1080,
-        margin: 0.05
+        margin: 0.02,
+        minScale: 0.2,
+        maxScale: 3.0
     });
 </script>
 </body>
