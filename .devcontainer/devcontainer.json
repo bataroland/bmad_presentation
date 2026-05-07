@@ -11,8 +11,6 @@
     "8082": { "label": "Spring Boot (migrated, port override)", "onAutoForward": "silent" }
   },
   "mounts": [
-    "source=${localEnv:HOME}/.config/claude,target=/root/.claude,type=bind",
-    "source=${localEnv:HOME}/.config/gh,target=/root/.config/gh,type=bind",
     "source=library-api-bash-history,target=/root/.bash_history,type=volume",
     "source=library-api-m2-repo,target=/root/.m2,type=volume",
     "source=library-api-vscode-server,target=/root/.vscode-server,type=volume"
